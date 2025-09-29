@@ -28,7 +28,7 @@ Physics Hub adalah platform pembelajaran fisika interaktif yang dirancang khusus
 
 ## 🚀 Demo Live
 
-Kunjungi aplikasi Physics Hub di: **[https://11220080-mochshadamj.github.io/physics/](https://11220080-mochshadamj.github.io/physics/)**
+Kunjungi aplikasi Physics Hub di: **[https://mochshadamj.github.io/physics/](https://mochshadamj.github.io/physics/)**
 
 ## 🛠️ Teknologi yang Digunakan
 
@@ -39,7 +39,7 @@ Kunjungi aplikasi Physics Hub di: **[https://11220080-mochshadamj.github.io/phys
 
 ## 📱 Cara Menggunakan
 
-1. **Akses Website**: Buka [Physics Hub](https://11220080-mochshadamj.github.io/physics/) di browser
+1. **Akses Website**: Buka [Physics Hub](https://mochshadamj.github.io/physics/) di browser
 2. **Pilih Topik**: Klik pada kartu topik yang ingin dipelajari
 3. **Baca Materi**: Pelajari penjelasan konsep dan formula
 4. **Lihat Contoh**: Pahami contoh soal dengan penyelesaiannya
@@ -86,8 +86,8 @@ Kunjungi aplikasi Physics Hub di: **[https://11220080-mochshadamj.github.io/phys
 Jika ada pertanyaan, saran, atau feedback, silakan hubungi:
 
 - **Developer**: Moch Shaddam J
-- **GitHub**: [@11220080-mochshadamj](https://github.com/11220080-mochshadamj)
-- **Project**: [Physics Hub Repository](https://github.com/11220080-mochshadamj/physics)
+- **GitHub**: [@mochshadamj](https://github.com/mochshadamj)
+- **Project**: [Physics Hub Repository](https://github.com/mochshadamj/physics)
 
 ## 📄 Lisensi
 
@@ -99,4 +99,4 @@ Project ini dibuat untuk tujuan edukasi dan pembelajaran. Silakan digunakan seca
 
 *"Fisika itu sebenernya gampang, yang susah itu nyarinya di mana yang gampang!"* 😄
 
-**[🚀 Mulai Belajar Sekarang!](https://11220080-mochshadamj.github.io/physics/)**
+**[🚀 Mulai Belajar Sekarang!](https://mochshadamj.github.io/physics/)**
