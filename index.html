@@ -1,1070 +1,1499 @@
-    <!DOCTYPE html>
-    <html lang="id">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Physics Hub - Rumus Fisika Interaktif</title>
-        <link rel="stylesheet" href="css/index.css">
-    </head>
-    <body>
-        <div class="container">
-            <div class="header">
-                <h1>🚀 Physics Hub</h1>
-                <p>Belajar Fisika Jadi Asik dan Gampang Banget!</p>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Hub - Rumus Fisika Interaktif</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #06ffa5;
+            --warning: #ff9e00;
+            --danger: #ff0054;
+            --info: #00b4d8;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --hover-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            font-weight: 500;
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .topic-card {
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            border-radius: 16px;
+            padding: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .topic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .topic-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .topic-card h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .topic-card p {
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .content-area {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .back-btn {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+        }
+
+        .formula-box {
+            background: linear-gradient(135deg, #f5f7fa, #e4e8f0);
+            border-left: 5px solid var(--primary);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--secondary);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .variables-box {
+            background: rgba(0, 123, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(0, 123, 255, 0.1);
+        }
+
+        .variables-box h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .variable-item {
+            display: flex;
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .variable-item:hover {
+            background: rgba(0, 123, 255, 0.1);
+        }
+
+        .variable-symbol {
+            font-weight: 700;
+            color: var(--accent);
+            min-width: 80px;
+        }
+
+        .variable-description {
+            color: #444;
+        }
+
+        .explanation {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid var(--info);
+        }
+
+        .explanation h3 {
+            color: var(--info);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .example-box {
+            background: rgba(255, 193, 7, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 1px solid rgba(255, 193, 7, 0.2);
+        }
+
+        .example-box h3 {
+            color: var(--warning);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .exercise-box {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid var(--success);
+        }
+
+        .exercise-box h3 {
+            color: var(--success);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .answer-input {
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            width: 150px;
+            margin-right: 10px;
+            transition: var(--transition);
+        }
+
+        .answer-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .btn {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 10px 10px 10px 0;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+        }
+
+        .feedback {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-weight: 500;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .feedback.correct {
+            background: rgba(6, 255, 165, 0.2);
+            color: #0a5c36;
+            border: 1px solid rgba(6, 255, 165, 0.3);
+        }
+
+        .feedback.incorrect {
+            background: rgba(255, 0, 84, 0.1);
+            color: #b71c1c;
+            border: 1px solid rgba(255, 0, 84, 0.2);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .topics-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 15px;
+            }
+            
+            .topic-card {
+                padding: 15px;
+            }
+            
+            .topic-card h3 {
+                font-size: 1.2rem;
+            }
+            
+            .content-area {
+                padding: 20px;
+            }
+        }
+
+        /* Floating particles background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            pointer-events: none;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-rocket"></i> Physics Hub</h1>
+            <p>Belajar Fisika Jadi Asik dan Gampang Banget!</p>
+        </div>
+
+        <div id="topicsSection" class="topics-grid">
+            <div class="topic-card" onclick="showTopic('besaranSatuan')">
+                <h3><i class="fas fa-ruler"></i> Besaran dan Satuan</h3>
+                <p>Pelajari dasar-dasar pengukuran dalam fisika dengan cara yang seru!</p>
+            </div>
+            
+            <div class="topic-card" onclick="showTopic('gerakLurus')">
+                <h3><i class="fas fa-running"></i> Gerak Lurus</h3>
+                <p>Pahami konsep kecepatan, percepatan, dan jarak tempuh</p>
+            </div>
+            
+            <div class="topic-card" onclick="showTopic('gaya')">
+                <h3><i class="fas fa-dumbbell"></i> Gaya dan Hukum Newton</h3>
+                <p>Eksplorasi hukum-hukum Newton yang mengatur gerakan benda</p>
+            </div>
+            
+            <div class="topic-card" onclick="showTopic('energi')">
+                <h3><i class="fas fa-bolt"></i> Energi dan Usaha</h3>
+                <p>Mengenal berbagai bentuk energi dan cara kerjanya</p>
+            </div>
+            
+            <div class="topic-card" onclick="showTopic('momentum')">
+                <h3><i class="fas fa-bullseye"></i> Momentum dan Impuls</h3>
+                <p>Pelajari konsep momentum dalam tumbukan dan gerakan</p>
+            </div>
+            
+            <div class="topic-card" onclick="showTopic('kinematika')">
+                <h3><i class="fas fa-tachometer-alt"></i> Kecepatan dan Percepatan</h3>
+                <p>Pelajari kinematika: laju, kecepatan rata-rata, sesaat, dan gerak vertikal</p>
             </div>
 
-            <div id="topicsSection" class="topics-grid">
-                <div class="topic-card" onclick="showTopic('besaranSatuan')">
-                    <h3>📏 Besaran dan Satuan</h3>
-                    <p>Pelajari dasar-dasar pengukuran dalam fisika dengan cara yang seru!</p>
-                </div>
-                
-                <div class="topic-card" onclick="showTopic('gerakLurus')">
-                    <h3>🏃‍♂️ Gerak Lurus</h3>
-                    <p>Pahami konsep kecepatan, percepatan, dan jarak tempuh</p>
-                </div>
-                
-                <div class="topic-card" onclick="showTopic('gaya')">
-                    <h3>💪 Gaya dan Hukum Newton</h3>
-                    <p>Eksplorasi hukum-hukum Newton yang mengatur gerakan benda</p>
-                </div>
-                
-                <div class="topic-card" onclick="showTopic('energi')">
-                    <h3>⚡ Energi dan Usaha</h3>
-                    <p>Mengenal berbagai bentuk energi dan cara kerjanya</p>
-                </div>
-                
-                <div class="topic-card" onclick="showTopic('momentum')">
-                    <h3>🎯 Momentum dan Impuls</h3>
-                    <p>Pelajari konsep momentum dalam tumbukan dan gerakan</p>
-                </div>
-                
-                <div class="topic-card" onclick="showTopic('kinematika')">
-                    <h3>🏎️ Kecepatan dan Percepatan</h3>
-                    <p>Pelajari kinematika: laju, kecepatan rata-rata, sesaat, dan gerak vertikal</p>
-                </div>
-
-                <div class="topic-card" onclick="showTopic('vektor')">
-                    <h3>🎯 Vektor</h3>
-                    <p>Pelajari vektor dalam koordinat kartesius, penjumlahan, dan perkalian vektor</p>
-                </div>
-
-                <div class="topic-card" onclick="showTopic('panas')">
-                    <h3>🔥 Panas dan Termodinamika</h3>
-                    <p>Pelajari suhu, kalor, pemuaian, dan hukum-hukum termodinamika</p>
-                </div>
-
-                <div class="topic-card" onclick="showTopic('termodinamika')">
-                    <h3>⚙️ Proses Termodinamika</h3>
-                    <p>Pahami hukum termodinamika dan proses-proses gas ideal</p>
-                </div>
-
-                <div class="topic-card" onclick="showTopic('hantaranPanas')">
-                    <h3>🌡️ Perpindahan Panas</h3>
-                    <p>Pelajari konduksi, konveksi, dan radiasi panas</p>
-                </div>
-                <div class="topic-card" onclick="showTopic('listrikStatis')">
-                    <h3>⚡ Muatan dan Medan Listrik</h3>
-                    <p>Pelajari hukum Coulomb, medan listrik, garis gaya, dan sifat konduktor-isolator</p>
-                </div>
-
-                <div class="topic-card" onclick="showTopic('potensialListrik')">
-                    <h3>🔋 Potensial Listrik</h3>
-                    <p>Pahami konsep potensial listrik, energi potensial, dan kapasitor</p>
-                </div>
-
-                <div class="topic-card" onclick="showTopic('arusListrik')">
-                    <h3>⚡ Arus Listrik & Hukum Kirchhoff</h3>
-                    <p>Pelajari aliran listrik dan hukum-hukum yang mengatur rangkaian listrik</p>
-                </div>
-
-                <div class="topic-card" onclick="showTopic('medanMagnet')">
-                    <h3>🧲 Medan Magnet</h3>
-                    <p>Eksplorasi medan magnet dan interaksinya dengan arus listrik</p>
-                </div>
-
-                <div class="topic-card" onclick="showTopic('induksiElektromagnetik')">
-                    <h3>🔄 Induksi Elektromagnetik</h3>
-                    <p>Pahami GGL induksi dan hukum Faraday-Lenz</p>
-                </div>
-
-                <div class="topic-card" onclick="showTopic('arusBolikBalik')">
-                    <h3>🌊 Arus Bolak-Balik (AC)</h3>
-                    <p>Pelajari karakteristik arus AC dan rangkaian RLC</p>
-                </div>
+            <div class="topic-card" onclick="showTopic('vektor')">
+                <h3><i class="fas fa-arrows-alt"></i> Vektor</h3>
+                <p>Pelajari vektor dalam koordinat kartesius, penjumlahan, dan perkalian vektor</p>
             </div>
 
-            <div id="contentArea" class="content-area">
-                <button class="btn back-btn" onclick="showTopics()">← Kembali ke Menu</button>
-                <div id="topicContent"></div>
+            <div class="topic-card" onclick="showTopic('panas')">
+                <h3><i class="fas fa-fire"></i> Panas dan Termodinamika</h3>
+                <p>Pelajari suhu, kalor, pemuaian, dan hukum-hukum termodinamika</p>
+            </div>
+
+            <div class="topic-card" onclick="showTopic('termodinamika')">
+                <h3><i class="fas fa-cogs"></i> Proses Termodinamika</h3>
+                <p>Pahami hukum termodinamika dan proses-proses gas ideal</p>
+            </div>
+
+            <div class="topic-card" onclick="showTopic('hantaranPanas')">
+                <h3><i class="fas fa-temperature-high"></i> Perpindahan Panas</h3>
+                <p>Pelajari konduksi, konveksi, dan radiasi panas</p>
+            </div>
+            
+            <div class="topic-card" onclick="showTopic('listrikStatis')">
+                <h3><i class="fas fa-battery-full"></i> Muatan dan Medan Listrik</h3>
+                <p>Pelajari hukum Coulomb, medan listrik, garis gaya, dan sifat konduktor-isolator</p>
+            </div>
+
+            <div class="topic-card" onclick="showTopic('potensialListrik')">
+                <h3><i class="fas fa-plug"></i> Potensial Listrik</h3>
+                <p>Pahami konsep potensial listrik, energi potensial, dan kapasitor</p>
+            </div>
+
+            <div class="topic-card" onclick="showTopic('arusListrik')">
+                <h3><i class="fas fa-charging-station"></i> Arus Listrik & Hukum Kirchhoff</h3>
+                <p>Pelajari aliran listrik dan hukum-hukum yang mengatur rangkaian listrik</p>
+            </div>
+
+            <div class="topic-card" onclick="showTopic('medanMagnet')">
+                <h3><i class="fas fa-magnet"></i> Medan Magnet</h3>
+                <p>Eksplorasi medan magnet dan interaksinya dengan arus listrik</p>
+            </div>
+
+            <div class="topic-card" onclick="showTopic('induksiElektromagnetik')">
+                <h3><i class="fas fa-sync-alt"></i> Induksi Elektromagnetik</h3>
+                <p>Pahami GGL induksi dan hukum Faraday-Lenz</p>
+            </div>
+
+            <div class="topic-card" onclick="showTopic('arusBolikBalik')">
+                <h3><i class="fas fa-wave-square"></i> Arus Bolak-Balik (AC)</h3>
+                <p>Pelajari karakteristik arus AC dan rangkaian RLC</p>
             </div>
         </div>
 
-        <script>
-            let currentExercise = {};
+        <div id="contentArea" class="content-area">
+            <button class="btn back-btn" onclick="showTopics()">
+                <i class="fas fa-arrow-left"></i> Kembali ke Menu
+            </button>
+            <div id="topicContent"></div>
+        </div>
+    </div>
 
-            const topics = {
-                besaranSatuan: {
-                    title: "📏 Besaran dan Satuan Fisika",
-                    formula: "1 km = 1000 m | 1 kg = 1000 g | 1 jam = 3600 s",
-                    variables: {
-                        "v": "kecepatan (velocity) dalam m/s",
-                        "s": "jarak (distance) dalam meter (m)", 
-                        "t": "waktu (time) dalam detik (s)",
-                        "km": "kilometer = 1000 meter",
-                        "g": "gram, dimana 1 kg = 1000 g"
-                    },
-                    explanation: `
-                        <strong>Eh, ini dia nih yang paling basic tapi super penting!</strong><br><br>
-                        Jadi gini guys, besaran tuh kayak "apa yang mau kita ukur", misalnya panjang, massa, waktu. Nah, satuan tuh "pakai apa kita ngukurnya", kayak meter, kilogram, detik.<br><br>
-                        <strong>Besaran Pokok (yang utama banget):</strong><br>
-                        • Panjang → meter (m)<br>
-                        • Massa → kilogram (kg)<br>
-                        • Waktu → sekon (s)<br>
-                        • Arus listrik → ampere (A)<br><br>
-                        <strong>Besaran Turunan (gabungan yang pokok):</strong><br>
-                        • Luas → m²<br>
-                        • Volume → m³<br>
-                        • Kecepatan → m/s<br>
-                        • Percepatan → m/s²
-                    `,
-                    example: `
-                        <strong>Contoh Soal:</strong><br>
-                        Pak Budi naik motor dari rumah ke kantor sejauh 5 km dalam waktu 15 menit. Berapa kecepatan rata-rata Pak Budi?<br><br>
-                        <strong>Penyelesaian:</strong><br>
-                        Diketahui: s = 5 km = 5000 m, t = 15 menit = 900 s<br>
-                        Ditanya: v = ?<br><br>
-                        v = s/t = 5000 m / 900 s = 5,56 m/s<br><br>
-                        Jadi kecepatan Pak Budi adalah 5,56 m/s atau sekitar 20 km/jam.
-                    `,
-                    exercise: {
-                        question: "Sebuah mobil menempuh jarak 150 km dalam waktu 2,5 jam. Berapa kecepatan rata-rata mobil tersebut dalam m/s?",
-                        answer: 16.67,
-                        tolerance: 0.5,
-                        unit: "m/s"
-                    }
-                },
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
                 
-                gerakLurus: {
-                    title: "🏃‍♂️ Gerak Lurus",
-                    formula: "v = s/t | a = Δv/Δt | s = v₀t + ½at²",
-                    variables: {
-                        "v": "kecepatan akhir dalam m/s",
-                        "v₀": "kecepatan awal dalam m/s", 
-                        "s": "jarak tempuh dalam meter (m)",
-                        "t": "waktu dalam detik (s)",
-                        "a": "percepatan dalam m/s²",
-                        "Δv": "perubahan kecepatan (v - v₀)",
-                        "Δt": "perubahan waktu"
-                    },
-                    explanation: `
-                        <strong>Nah ini nih yang bikin kita bisa ngitung seberapa cepet kita lari!</strong><br><br>
-                        Gerak lurus itu gerakan benda yang lintasannya berupa garis lurus. Ada dua jenis:<br><br>
-                        <strong>1. Gerak Lurus Beraturan (GLB):</strong><br>
-                        • Kecepatan tetap (ga berubah)<br>
-                        • Rumus: s = v × t<br><br>
-                        <strong>2. Gerak Lurus Berubah Beraturan (GLBB):</strong><br>
-                        • Kecepatan berubah secara teratur<br>
-                        • Rumus: v = v₀ + at<br>
-                        • Rumus jarak: s = v₀t + ½at²<br><br>
-                        <strong>Tips:</strong> Kalau benda dipercepat, a positif. Kalau direm, a negatif!
-                    `,
-                    example: `
-                        <strong>Contoh Soal GLBB:</strong><br>
-                        Sebuah mobil mula-mula diam, lalu dipercepat dengan percepatan 2 m/s². Berapa jarak yang ditempuh dalam 5 detik?<br><br>
-                        <strong>Penyelesaian:</strong><br>
-                        Diketahui: v₀ = 0 m/s, a = 2 m/s², t = 5 s<br>
-                        Ditanya: s = ?<br><br>
-                        s = v₀t + ½at²<br>
-                        s = 0(5) + ½(2)(5)²<br>
-                        s = 0 + ½(2)(25) = 25 m<br><br>
-                        Jadi jarak yang ditempuh adalah 25 meter.
-                    `,
-                    exercise: {
-                        question: "Sebuah bola dilempar ke atas dengan kecepatan awal 20 m/s. Jika percepatan gravitasi 10 m/s², berapa tinggi maksimum yang dicapai bola? (gunakan rumus: h = v₀²/2g)",
-                        answer: 20,
-                        tolerance: 1,
-                        unit: "m"
-                    }
-                },
-
-                gaya: {
-                    title: "💪 Gaya dan Hukum Newton",
-                    formula: "F = m × a | ΣF = 0 (setimbang) | F₁ = -F₂ (aksi-reaksi)",
-                    variables: {
-                        "F": "gaya dalam Newton (N)",
-                        "m": "massa benda dalam kilogram (kg)",
-                        "a": "percepatan dalam m/s²",
-                        "ΣF": "jumlah total semua gaya",
-                        "F₁, F₂": "gaya aksi dan reaksi yang berlawanan"
-                    },
-                    explanation: `
-                        <strong>Ini dia rumus yang bikin kita paham kenapa mobil bisa jalan!</strong><br><br>
-                        <strong>Hukum I Newton (Hukum Kelembaman):</strong><br>
-                        Benda yang diam akan tetap diam, benda yang bergerak akan tetap bergerak, kecuali ada gaya yang mempengaruhinya.<br><br>
-                        <strong>Hukum II Newton:</strong><br>
-                        F = m × a<br>
-                        Makin besar gaya, makin besar percepatan. Makin berat benda, makin susah dipercepat.<br><br>
-                        <strong>Hukum III Newton:</strong><br>
-                        Setiap aksi ada reaksi yang sama besar tapi berlawanan arah.<br>
-                        Contoh: Waktu kita jalan, kaki dorong tanah ke belakang, tanah dorong kaki ke depan.
-                    `,
-                    example: `
-                        <strong>Contoh Soal:</strong><br>
-                        Sebuah kotak bermassa 10 kg didorong dengan gaya 50 N. Berapa percepatan kotak tersebut?<br><br>
-                        <strong>Penyelesaian:</strong><br>
-                        Diketahui: m = 10 kg, F = 50 N<br>
-                        Ditanya: a = ?<br><br>
-                        F = m × a<br>
-                        50 = 10 × a<br>
-                        a = 50/10 = 5 m/s²<br><br>
-                        Jadi percepatan kotak adalah 5 m/s².
-                    `,
-                    exercise: {
-                        question: "Sebuah benda bermassa 8 kg bergerak dengan percepatan 3 m/s². Berapa besar gaya yang bekerja pada benda tersebut?",
-                        answer: 24,
-                        tolerance: 1,
-                        unit: "N"
-                    }
-                },
-
-                energi: {
-                    title: "⚡ Energi dan Usaha",
-                    formula: "Ek = ½mv² | Ep = mgh | W = F × s",
-                    variables: {
-                        "Ek": "energi kinetik dalam Joule (J)",
-                        "Ep": "energi potensial dalam Joule (J)", 
-                        "W": "usaha dalam Joule (J)",
-                        "m": "massa benda dalam kilogram (kg)",
-                        "v": "kecepatan dalam m/s",
-                        "g": "percepatan gravitasi (≈ 10 m/s²)",
-                        "h": "ketinggian dalam meter (m)",
-                        "F": "gaya dalam Newton (N)",
-                        "s": "perpindahan dalam meter (m)"
-                    },
-                    explanation: `
-                        <strong>Energi tuh kayak 'bahan bakar' buat segala sesuatu bergerak!</strong><br><br>
-                        <strong>Energi Kinetik (Ek):</strong><br>
-                        Energi yang dimiliki benda karena bergerak<br>
-                        Rumus: Ek = ½mv²<br><br>
-                        <strong>Energi Potensial (Ep):</strong><br>
-                        Energi yang dimiliki benda karena posisinya<br>
-                        Rumus: Ep = mgh<br><br>
-                        <strong>Usaha (W):</strong><br>
-                        Energi yang diperlukan untuk memindahkan benda<br>
-                        Rumus: W = F × s × cos θ<br><br>
-                        <strong>Hukum Kekekalan Energi:</strong><br>
-                        Energi ga bisa diciptakan atau dimusnahkan, cuma bisa diubah bentuknya!
-                    `,
-                    example: `
-                        <strong>Contoh Soal:</strong><br>
-                        Sebuah bola bermassa 2 kg jatuh dari ketinggian 5 m. Berapa energi kinetik bola saat menyentuh tanah? (g = 10 m/s²)<br><br>
-                        <strong>Penyelesaian:</strong><br>
-                        Pakai hukum kekekalan energi:<br>
-                        Ep awal = Ek akhir<br>
-                        mgh = ½mv²<br>
-                        2 × 10 × 5 = ½ × 2 × v²<br>
-                        100 = v²<br>
-                        v = 10 m/s<br><br>
-                        Ek = ½mv² = ½ × 2 × 10² = 100 J
-                    `,
-                    exercise: {
-                        question: "Sebuah mobil bermassa 1000 kg bergerak dengan kecepatan 20 m/s. Berapa energi kinetik mobil tersebut?",
-                        answer: 200000,
-                        tolerance: 10000,
-                        unit: "J"
-                    }
-                },
-
-                momentum: {
-                    title: "🎯 Momentum dan Impuls",
-                    formula: "p = m × v | I = F × Δt | I = Δp",
-                    variables: {
-                        "p": "momentum dalam kg⋅m/s",
-                        "m": "massa benda dalam kilogram (kg)",
-                        "v": "kecepatan dalam m/s", 
-                        "I": "impuls dalam N⋅s",
-                        "F": "gaya dalam Newton (N)",
-                        "Δt": "selang waktu dalam detik (s)",
-                        "Δp": "perubahan momentum",
-                        "v₁, v₂": "kecepatan sebelum tumbukan",
-                        "v₁', v₂'": "kecepatan setelah tumbukan"
-                    },
-                    explanation: `
-                        <strong>Momentum tuh kayak 'daya dobrak' suatu benda!</strong><br><br>
-                        <strong>Momentum (p):</strong><br>
-                        p = m × v<br>
-                        Makin berat dan makin cepat, makin besar momentumnya<br><br>
-                        <strong>Impuls (I):</strong><br>
-                        I = F × Δt = Δp<br>
-                        Impuls = perubahan momentum<br><br>
-                        <strong>Hukum Kekekalan Momentum:</strong><br>
-                        Dalam sistem tertutup, momentum total sebelum = momentum total sesudah<br>
-                        m₁v₁ + m₂v₂ = m₁v₁' + m₂v₂'
-                    `,
-                    example: `
-                        <strong>Contoh Soal Tumbukan:</strong><br>
-                        Bola A (2 kg) bergerak 4 m/s menumbuk bola B (3 kg) yang diam. Setelah tumbukan, bola A bergerak 1 m/s. Berapa kecepatan bola B?<br><br>
-                        <strong>Penyelesaian:</strong><br>
-                        Momentum sebelum = Momentum sesudah<br>
-                        m₁v₁ + m₂v₂ = m₁v₁' + m₂v₂'<br>
-                        2(4) + 3(0) = 2(1) + 3(v₂')<br>
-                        8 = 2 + 3v₂'<br>
-                        v₂' = 2 m/s
-                    `,
-                    exercise: {
-                        question: "Sebuah benda bermassa 5 kg bergerak dengan kecepatan 6 m/s. Berapa momentum benda tersebut?",
-                        answer: 30,
-                        tolerance: 1,
-                        unit: "kg⋅m/s"
-                    }
-                },
-
-                kinematika: {
-                    title: "🏎️ Kecepatan dan Percepatan",
-                    formula: "v̄ = Δs/Δt | v = ds/dt | a = dv/dt | v² = v₀² + 2as",
-                    variables: {
-                        "v̄": "kecepatan rata-rata dalam m/s",
-                        "v": "kecepatan sesaat dalam m/s",
-                        "v₀": "kecepatan awal dalam m/s",
-                        "a": "percepatan dalam m/s²",
-                        "s": "posisi/jarak dalam meter (m)",
-                        "t": "waktu dalam detik (s)",
-                        "Δs": "perpindahan (s₂ - s₁)",
-                        "Δt": "selang waktu (t₂ - t₁)",
-                        "Δv": "perubahan kecepatan (v - v₀)",
-                        "g": "percepatan gravitasi (≈ 10 m/s²)",
-                        "h": "ketinggian dalam meter (m)"
-                    },
-                    explanation: `
-                        <strong>Kinematika tuh ilmu yang bahas gerakan tanpa peduli penyebabnya!</strong><br><br>
-                        <strong>Laju vs Kecepatan:</strong><br>
-                        • Laju = jarak total ÷ waktu (selalu positif)<br>
-                        • Kecepatan = perpindahan ÷ waktu (bisa negatif)<br><br>
-                        <strong>Kecepatan Rata-rata:</strong><br>
-                        v̄ = Δs/Δt = (s₂ - s₁)/(t₂ - t₁)<br><br>
-                        <strong>Kecepatan Sesaat:</strong><br>
-                        v = ds/dt (kecepatan pada saat tertentu)<br><br>
-                        <strong>Percepatan:</strong><br>
-                        a = Δv/Δt = dv/dt<br><br>
-                        <strong>Gerak Vertikal (jatuh bebas):</strong><br>
-                        • v = v₀ + gt<br>
-                        • h = v₀t + ½gt²<br>
-                        • v² = v₀² + 2gh
-                    `,
-                    example: `
-                        <strong>Contoh Soal Gerak Vertikal:</strong><br>
-                        Sebuah bola dilempar vertikal ke atas dengan kecepatan awal 30 m/s. Berapa tinggi maksimum dan waktu untuk mencapainya? (g = 10 m/s²)<br><br>
-                        <strong>Penyelesaian:</strong><br>
-                        Di titik tertinggi: v = 0<br>
-                        v = v₀ - gt<br>
-                        0 = 30 - 10t<br>
-                        t = 3 s<br><br>
-                        h = v₀t - ½gt²<br>
-                        h = 30(3) - ½(10)(3)²<br>
-                        h = 90 - 45 = 45 m<br><br>
-                        Atau pakai: h = v₀²/(2g) = 30²/(2×10) = 45 m
-                    `,
-                    exercise: {
-                        question: "Sebuah mobil bergerak dari kecepatan 20 m/s menjadi 50 m/s dalam waktu 6 detik. Berapa percepatan mobil tersebut?",
-                        answer: 5,
-                        tolerance: 0.5,
-                        unit: "m/s²"
-                    }
-                },
-                vektor: {
-                    title: "🎯 Vektor dalam Koordinat Kartesius",
-                    formula: "A = Ax&nbsp;i + Ay&nbsp;j | |A| = &radic;(Ax&sup2; + Ay&sup2;) | A &middot; B = AxBx + AyBy | A &times; B = AxBy - AyBx",
-                    variables: {
-                        "A, B": "vektor A dan B",
-                        "Ax, Ay": "komponen vektor A pada sumbu x dan y",
-                        "Bx, By": "komponen vektor B pada sumbu x dan y",
-                        "|A|": "besar/magnitude vektor A",
-                        "i, j": "vektor satuan pada sumbu x dan y",
-                        "A &middot; B": "perkalian dot/skalar vektor",
-                        "A &times; B": "perkalian cross/silang vektor (2D)",
-                        "&theta;": "sudut antara dua vektor",
-                        "cos &theta;": "kosinus sudut antara vektor"
-                    },
-                    explanation: `
-                        <strong>Vektor tuh kayak panah yang punya arah dan besar!</strong><br><br>
-                        <strong>Koordinat Kartesius:</strong><br>
-                        • Vektor A = Ax&nbsp;i + Ay&nbsp;j<br>
-                        • Ax = komponen horizontal<br>
-                        • Ay = komponen vertikal<br><br>
-                        <strong>Besar Vektor:</strong><br>
-                        |A| = &radic;(Ax&sup2; + Ay&sup2;)<br><br>
-                        <strong>Penjumlahan Vektor:</strong><br>
-                        C = A + B = (Ax + Bx)i + (Ay + By)j<br><br>
-                        <strong>Perkalian Dot (Skalar):</strong><br>
-                        A &middot; B = |A||B|cos &theta; = AxBx + AyBy<br><br>
-                        <strong>Perkalian Cross (dalam 2D):</strong><br>
-                        A &times; B = AxBy - AyBx<br><br>
-                        <strong>Tips:</strong> Vektor punya arah, skalar cuma punya besar!
-                    `,
-                    example: `
-                        <strong>Contoh Soal:</strong><br>
-                        Diketahui A = 3i + 4j dan B = 5i - 2j. Tentukan:<br>
-                        a) |A| dan |B|<br>
-                        b) A + B<br>
-                        c) A &middot; B<br><br>
-                        <strong>Penyelesaian:</strong><br>
-                        a) |A| = &radic;(3&sup2; + 4&sup2;) = &radic;(9 + 16) = 5<br>
-                        |B| = &radic;(5&sup2; + (-2)&sup2;) = &radic;(25 + 4) = &radic;29 &asymp; 5,39<br><br>
-                        b) A + B = (3+5)i + (4-2)j = 8i + 2j<br><br>
-                        c) A &middot; B = (3)(5) + (4)(-2) = 15 - 8 = 7
-                    `,
-                    exercise: {
-                        question: "Vektor P = 6i + 8j. Berapa besar vektor P?",
-                        answer: 10,
-                        tolerance: 0.1,
-                        unit: "satuan"
-                    }
-                },
-                panas: {
-                    title: "🔥 Panas dan Termodinamika",
-                    formula: "Q = mcΔT | ΔL = L₀αΔT | ΔV = V₀βΔT | PV = nRT",
-                    variables: {
-                        "Q": "kalor/panas dalam Joule (J)",
-                        "m": "massa benda dalam kilogram (kg)",
-                        "c": "kalor jenis benda (J/kg°C)",
-                        "ΔT": "perubahan suhu (°C atau K)",
-                        "T": "suhu dalam Kelvin (K) atau Celsius (°C)",
-                        "ΔL": "pertambahan panjang (m)",
-                        "L₀": "panjang mula-mula (m)",
-                        "α": "koefisien muai panjang (/°C)",
-                        "ΔV": "pertambahan volume (m³)",
-                        "V₀": "volume mula-mula (m³)",
-                        "β": "koefisien muai volume (/°C)",
-                        "P": "tekanan gas (Pa atau atm)",
-                        "V": "volume gas (m³ atau L)",
-                        "n": "jumlah mol gas",
-                        "R": "konstanta gas ideal (8.314 J/mol⋅K)",
-                        "ρ": "densitas/kerapatan (kg/m³)",
-                        "RH": "kelembaban relatif (%)"
-                    },
-                    explanation: `
-                        <strong>Panas tuh energi yang berpindah karena perbedaan suhu!</strong><br><br>
-                        
-                        <strong>🌡️ Suhu dan Termometri:</strong><br>
-                        • Celsius: 0°C (es mencair), 100°C (air mendidih)<br>
-                        • Kelvin: T(K) = T(°C) + 273<br>
-                        • Fahrenheit: T(°F) = 9/5 × T(°C) + 32<br><br>
-                        
-                        <strong>🔥 Kalor/Panas:</strong><br>
-                        Q = m × c × ΔT<br>
-                        • m = massa, c = kalor jenis, ΔT = perubahan suhu<br>
-                        • Kalor jenis air = 4200 J/kg°C<br><br>
-                        
-                        <strong>📏 Pemuaian Termal:</strong><br>
-                        • Pemuaian panjang: ΔL = L₀ × α × ΔT<br>
-                        • Pemuaian volume: ΔV = V₀ × β × ΔT<br>
-                        • β ≈ 3α (untuk benda padat)<br><br>
-                        
-                        <strong>💧 Perubahan Fase:</strong><br>
-                        • Mencair: padat → cair (butuh kalor lebur)<br>
-                        • Menguap: cair → gas (butuh kalor uap)<br>
-                        • Q = m × L (L = kalor laten)<br><br>
-                        
-                        <strong>💨 Gas Ideal:</strong><br>
-                        PV = nRT<br>
-                        • 1 mol = 6.02 × 10²³ partikel<br>
-                        • STP: 0°C, 1 atm<br><br>
-                        
-                        <strong>🌍 Efek Rumah Kaca:</strong><br>
-                        Gas-gas seperti CO₂, CH₄ menyerap radiasi inframerah dan memanaskan atmosfer.<br><br>
-                        
-                        <strong>📊 Hukum Termodinamika ke-0:</strong><br>
-                        Jika A = B dan B = C, maka A = C (konsep kesetimbangan termal)
-                    `,
-                    example: `
-                        <strong>Contoh Soal Kalor:</strong><br>
-                        Berapa kalor yang diperlukan untuk memanaskan 2 kg air dari 20°C menjadi 80°C? (c air = 4200 J/kg°C)<br><br>
-                        <strong>Penyelesaian:</strong><br>
-                        Diketahui: m = 2 kg, c = 4200 J/kg°C, ΔT = 80-20 = 60°C<br>
-                        Ditanya: Q = ?<br><br>
-                        Q = m × c × ΔT<br>
-                        Q = 2 × 4200 × 60<br>
-                        Q = 504.000 J = 504 kJ<br><br>
-                        
-                        <strong>Contoh Pemuaian:</strong><br>
-                        Batang besi panjang 10 m dipanaskan dari 20°C ke 120°C. Jika α = 1.2 × 10⁻⁵ /°C, berapa pertambahan panjangnya?<br><br>
-                        ΔL = L₀ × α × ΔT = 10 × 1.2×10⁻⁵ × 100 = 0.012 m = 1.2 cm
-                    `,
-                    exercise: {
-                        question: "Sebuah batang tembaga panjang 5 m dipanaskan sehingga suhunya naik 50°C. Jika koefisien muai panjang tembaga 1.7 × 10⁻⁵ /°C, berapa pertambahan panjang batang? (dalam mm)",
-                        answer: 4.25,
-                        tolerance: 0.25,
-                        unit: "mm"
-                    }
-                },
-                termodinamika: {
-                    title: "⚙️ Proses Termodinamika",
-                    formula: "ΔU = Q - W | W = ∫PdV | Q = nCΔT",
-                    variables: {
-                        "ΔU": "perubahan energi dalam (J)",
-                        "Q": "kalor yang diterima/dilepas (J)",
-                        "W": "usaha yang dilakukan (J)",
-                        "P": "tekanan (Pa)",
-                        "V": "volume (m³)",
-                        "T": "suhu (K)",
-                        "n": "jumlah mol",
-                        "C": "kapasitas kalor (J/mol⋅K)",
-                        "Cp": "kapasitas kalor tekanan tetap",
-                        "Cv": "kapasitas kalor volume tetap",
-                        "γ": "rasio Cp/Cv"
-                    },
-                    explanation: `
-                        <strong>Termodinamika tuh ilmu yang bahas hubungan panas, usaha, dan energi!</strong><br><br>
-                        
-                        <strong>⚖️ Hukum I Termodinamika:</strong><br>
-                        ΔU = Q - W<br>
-                        • Energi tidak bisa diciptakan atau dimusnahkan<br>
-                        • Q > 0: sistem menerima kalor<br>
-                        • W > 0: sistem melakukan usaha<br><br>
-                        
-                        <strong>🔄 Proses-Proses Termodinamika:</strong><br><br>
-                        
-                        <strong>📊 Proses Isobar (Tekanan Tetap):</strong><br>
-                        • P = konstan<br>
-                        • W = P × ΔV<br>
-                        • Contoh: pemanasan air dalam panci terbuka<br><br>
-                        
-                        <strong>📦 Proses Isokhor/Isovolume (Volume Tetap):</strong><br>
-                        • V = konstan<br>
-                        • W = 0 (tidak ada usaha)<br>
-                        • Q = ΔU<br>
-                        • Contoh: pemanasan gas dalam tabung tertutup<br><br>
-                        
-                        <strong>🌡️ Proses Isotermal (Suhu Tetap):</strong><br>
-                        • T = konstan<br>
-                        • ΔU = 0 (untuk gas ideal)<br>
-                        • Q = W<br>
-                        • Contoh: kompresi/ekspansi lambat<br><br>
-                        
-                        <strong>🚀 Proses Adiabatik:</strong><br>
-                        • Q = 0 (tidak ada perpindahan kalor)<br>
-                        • ΔU = -W<br>
-                        • PVᵞ = konstan<br>
-                        • Contoh: kompresi/ekspansi cepat
-                    `,
-                    example: `
-                        <strong>Contoh Hukum I Termodinamika:</strong><br>
-                        Sebuah sistem menerima kalor 500 J dan melakukan usaha 300 J. Berapa perubahan energi dalamnya?<br><br>
-                        <strong>Penyelesaian:</strong><br>
-                        Diketahui: Q = +500 J (menerima), W = +300 J (melakukan)<br>
-                        Ditanya: ΔU = ?<br><br>
-                        ΔU = Q - W<br>
-                        ΔU = 500 - 300 = 200 J<br><br>
-                        Jadi energi dalam sistem bertambah 200 J.
-                    `,
-                    exercise: {
-                        question: "Sebuah gas ideal melakukan usaha 400 J sambil melepaskan kalor 150 J. Berapa perubahan energi dalam gas tersebut?",
-                        answer: -550,
-                        tolerance: 10,
-                        unit: "J"
-                    }
-                },
-                hantaranPanas: {
-                    title: "🌡️ Perpindahan Panas",
-                    formula: "q = kA(ΔT/Δx) | q = hA(ΔT) | q = εσAT⁴",
-                    variables: {
-                        "q": "laju perpindahan panas (W atau J/s)",
-                        "k": "konduktivitas termal (W/m⋅K)",
-                        "A": "luas penampang (m²)",
-                        "ΔT": "perbedaan suhu (K atau °C)",
-                        "Δx": "ketebalan material (m)",
-                        "h": "koefisien konveksi (W/m²⋅K)",
-                        "ε": "emisivitas (0-1)",
-                        "σ": "konstanta Stefan-Boltzmann (5.67×10⁻⁸ W/m²⋅K⁴)",
-                        "T": "suhu mutlak (K)",
-                        "RH": "kelembaban relatif (%)",
-                        "Td": "titik embun (°C)"
-                    },
-                    explanation: `
-                        <strong>Ada 3 cara panas berpindah dari tempat panas ke tempat dingin!</strong><br><br>
-                        
-                        <strong>🧱 Konduksi (Hantaran):</strong><br>
-                        • Perpindahan panas melalui benda padat<br>
-                        • Tanpa perpindahan materi<br>
-                        • Rumus: q = kA(ΔT/Δx)<br>
-                        • Contoh: sendok panas saat diaduk di air panas<br>
-                        • Logam = konduktor baik, kayu = isolator<br><br>
-                        
-                        <strong>🌬️ Konveksi (Aliran):</strong><br>
-                        • Perpindahan panas melalui aliran fluida (cair/gas)<br>
-                        • Ada perpindahan materi<br>
-                        • Konveksi alami: karena perbedaan densitas<br>
-                        • Konveksi paksa: dengan kipas/pompa<br>
-                        • Contoh: angin darat-laut, air mendidih<br><br>
-                        
-                        <strong>☀️ Radiasi (Pancaran):</strong><br>
-                        • Perpindahan panas tanpa medium<br>
-                        • Melalui gelombang elektromagnetik<br>
-                        • Rumus Stefan-Boltzmann: q = εσAT⁴<br>
-                        • Contoh: panas matahari, microwave<br>
-                        • Benda hitam = penyerap radiasi terbaik<br><br>
-                        
-                        <strong>💧 Kelembaban:</strong><br>
-                        • Kelembaban relatif (RH) = (tekanan uap / tekanan uap jenuh) × 100%<br>
-                        • Titik embun = suhu dimana uap air mulai mengembun<br>
-                        • Tinggi RH = terasa gerah<br><br>
-                        
-                        <strong>🏠 Aplikasi:</strong><br>
-                        • Termos: mengurangi ketiga jenis perpindahan panas<br>
-                        • AC: konveksi paksa + refrigerasi<br>
-                        • Rumah: isolasi untuk mengurangi konduksi
-                    `,
-                    example: `
-                        <strong>Contoh Konduksi:</strong><br>
-                        Dinding rumah tebal 20 cm, konduktivitas termal 0.5 W/m⋅K, luas 10 m². Suhu dalam 25°C, luar 5°C. Berapa laju perpindahan panas?<br><br>
-                        <strong>Penyelesaian:</strong><br>
-                        k = 0.5 W/m⋅K, A = 10 m², ΔT = 25-5 = 20°C, Δx = 0.2 m<br><br>
-                        q = kA(ΔT/Δx)<br>
-                        q = 0.5 × 10 × (20/0.2)<br>
-                        q = 0.5 × 10 × 100 = 500 W<br><br>
-                        Jadi rumah kehilangan panas 500 W melalui dinding.
-                    `,
-                    exercise: {
-                        question: "Sebuah batang logam panjang 50 cm, luas penampang 2 cm², k = 200 W/m⋅K. Ujung satu 100°C, ujung lain 20°C. Berapa laju perpindahan panas? (dalam W)",
-                        answer: 64,
-                        tolerance: 2,
-                        unit: "W"
-                    }
-                },
-                listrikStatis: {
-                    title: "⚡ Muatan dan Medan Listrik",
-                    formula: "F = k(q₁q₂)/r² | E = F/q = kQ/r² | Φ = E·A | q = n·e",
-                    variables: {
-                        "F": "gaya listrik dalam Newton (N)",
-                        "k": "konstanta Coulomb = 9×10⁹ N·m²/C²",
-                        "q₁, q₂": "muatan listrik dalam Coulomb (C)",
-                        "Q": "muatan sumber medan dalam Coulomb (C)",
-                        "r": "jarak antara muatan dalam meter (m)",
-                        "E": "kuat medan listrik dalam N/C atau V/m",
-                        "q": "muatan uji dalam Coulomb (C)",
-                        "Φ": "fluks listrik dalam N·m²/C",
-                        "A": "luas permukaan dalam m²",
-                        "n": "jumlah elektron/proton",
-                        "e": "muatan elementer = 1,6×10⁻¹⁹ C"
-                    },
-                    explanation: `
-                        <strong>Listrik statis tuh tentang muatan-muatan yang diam dan saling tarik-menarik!</strong><br><br>
-                        <strong>Muatan Listrik:</strong><br>
-                        • Muatan positif: kekurangan elektron<br>
-                        • Muatan negatif: kelebihan elektron<br>
-                        • Muatan elementer: e = 1,6×10⁻¹⁹ C<br><br>
-                        <strong>Hukum Coulomb:</strong><br>
-                        F = k(q₁q₂)/r²<br>
-                        • Muatan sejenis: tolak-menolak<br>
-                        • Muatan berbeda: tarik-menarik<br><br>
-                        <strong>Medan Listrik (E):</strong><br>
-                        E = F/q = kQ/r²<br>
-                        Medan listrik menunjukkan gaya per satuan muatan<br><br>
-                        <strong>Garis Gaya Listrik:</strong><br>
-                        • Keluar dari muatan positif<br>
-                        • Masuk ke muatan negatif<br>
-                        • Tidak pernah berpotongan<br><br>
-                        <strong>Konduktor vs Isolator:</strong><br>
-                        • Konduktor: mudah mengalirkan listrik (logam)<br>
-                        • Isolator: sulit mengalirkan listrik (plastik, kaca)<br><br>
-                        <strong>Hukum Gauss:</strong><br>
-                        Φ = Q_dalam/ε₀ (fluks listrik sebanding dengan muatan dalam)
-                    `,
-                    example: `
-                        <strong>Contoh Soal:</strong><br>
-                        Dua muatan q₁ = +3×10⁻⁶ C dan q₂ = -2×10⁻⁶ C terpisah sejauh 30 cm. Berapa gaya listrik yang bekerja?<br><br>
-                        <strong>Penyelesaian:</strong><br>
-                        Diketahui: q₁ = 3×10⁻⁶ C, q₂ = -2×10⁻⁶ C, r = 0,3 m<br>
-                        k = 9×10⁹ N·m²/C²<br><br>
-                        F = k|q₁q₂|/r²<br>
-                        F = (9×10⁹)(3×10⁻⁶)(2×10⁻⁶)/(0,3)²<br>
-                        F = (9×10⁹)(6×10⁻¹²)/0,09<br>
-                        F = 54×10⁻³/0,09 = 0,6 N<br><br>
-                        Karena muatan berbeda jenis, gaya bersifat tarik-menarik.
-                    `,
-                    exercise: {
-                        question: "Sebuah muatan +4×10⁻⁶ C menghasilkan medan listrik sejauh 2 meter dari muatan tersebut. Berapa besar medan listrik yang dihasilkan? (k = 9×10⁹ N·m²/C²)",
-                        answer: 9000,
-                        tolerance: 500,
-                        unit: "N/C"
-                    }
-                },
-
-                potensialListrik: {
-                    title: "🔋 Potensial Listrik",
-                    formula: "V = kQ/r | U = qV | W = qΔV | C = Q/V",
-                    variables: {
-                        "V": "potensial listrik dalam Volt (V)",
-                        "k": "konstanta Coulomb = 9×10⁹ N·m²/C²",
-                        "Q": "muatan sumber dalam Coulomb (C)",
-                        "r": "jarak dari muatan sumber dalam meter (m)",
-                        "U": "energi potensial listrik dalam Joule (J)",
-                        "q": "muatan uji dalam Coulomb (C)",
-                        "W": "usaha listrik dalam Joule (J)",
-                        "ΔV": "beda potensial dalam Volt (V)",
-                        "C": "kapasitansi dalam Farad (F)",
-                        "ε₀": "permitivitas ruang hampa = 8,85×10⁻¹² F/m"
-                    },
-                    explanation: `
-                        <strong>Potensial listrik tuh kayak 'ketinggian' dalam medan listrik!</strong><br><br>
-                        <strong>Potensial Listrik (V):</strong><br>
-                        V = kQ/r<br>
-                        • Potensial tinggi: muatan positif besar<br>
-                        • Potensial rendah: muatan negatif besar<br>
-                        • Satuan: Volt (V)<br><br>
-                        <strong>Energi Potensial Listrik:</strong><br>
-                        U = qV = k(q₁q₂)/r<br>
-                        Energi yang dimiliki muatan karena posisinya<br><br>
-                        <strong>Usaha Listrik:</strong><br>
-                        W = qΔV = q(V₂ - V₁)<br>
-                        Usaha untuk memindahkan muatan<br><br>
-                        <strong>Beda Potensial:</strong><br>
-                        ΔV = V₂ - V₁<br>
-                        • Arus mengalir dari potensial tinggi ke rendah<br><br>
-                        <strong>Kapasitor:</strong><br>
-                        C = Q/V<br>
-                        • Menyimpan muatan listrik<br>
-                        • Energi tersimpan: U = ½CV²<br><br>
-                        <strong>Hubungan E dan V:</strong><br>
-                        E = -dV/dr (medan = negatif gradien potensial)
-                    `,
-                    example: `
-                        <strong>Contoh Soal:</strong><br>
-                        Sebuah muatan +2×10⁻⁶ C berada pada jarak 3 meter dari muatan sumber +5×10⁻⁶ C. Berapa potensial listrik dan energi potensial muatan tersebut?<br><br>
-                        <strong>Penyelesaian:</strong><br>
-                        Diketahui: Q = 5×10⁻⁶ C, q = 2×10⁻⁶ C, r = 3 m<br>
-                        k = 9×10⁹ N·m²/C²<br><br>
-                        V = kQ/r<br>
-                        V = (9×10⁹)(5×10⁻⁶)/3<br>
-                        V = 45×10³/3 = 15000 V<br><br>
-                        U = qV<br>
-                        U = (2×10⁻⁶)(15000)<br>
-                        U = 0,03 J<br><br>
-                        Jadi potensial listrik 15000 V dan energi potensial 0,03 J.
-                    `,
-                    exercise: {
-                        question: "Sebuah kapasitor memiliki kapasitansi 2×10⁻⁶ F dan diberi tegangan 12 V. Berapa muatan yang tersimpan dalam kapasitor? (dalam μC)",
-                        answer: 24,
-                        tolerance: 2,
-                        unit: "μC"
-                    }
-                },
+                // Random properties
+                const size = Math.random() * 10 + 5;
+                const posX = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 20 + 15;
                 
-                arusListrik: {
-                    title: "⚡ Arus Listrik & Hukum Kirchhoff",
-                    formula: "I = Q/t | V = I × R | P = V × I | ΣI masuk = ΣI keluar",
-                    variables: {
-                        "I": "arus listrik dalam Ampere (A)",
-                        "Q": "muatan listrik dalam Coulomb (C)",
-                        "t": "waktu dalam sekon (s)",
-                        "V": "tegangan listrik dalam Volt (V)",
-                        "R": "hambatan listrik dalam Ohm (Ω)",
-                        "P": "daya listrik dalam Watt (W)",
-                        "ΣI": "jumlah total arus dalam Ampere (A)"
-                    },
-                    explanation: `
-                        <strong>Arus listrik tuh kayak aliran air, tapi yang ngalir elektron!</strong><br><br>
-                        <strong>Arus Listrik (I):</strong><br>
-                        I = Q/t (muatan per waktu)<br>
-                        Satuan: Ampere (A)<br><br>
-                        <strong>Hukum Ohm:</strong><br>
-                        V = I × R<br>
-                        V = tegangan (Volt), I = arus (Ampere), R = hambatan (Ohm)<br><br>
-                        <strong>Hukum Kirchhoff I (Hukum Arus):</strong><br>
-                        ΣI masuk = ΣI keluar<br>
-                        Total arus yang masuk ke titik = total arus yang keluar<br><br>
-                        <strong>Hukum Kirchhoff II (Hukum Tegangan):</strong><br>
-                        ΣV = 0 (dalam loop tertutup)<br>
-                        Jumlah tegangan dalam satu loop = 0<br><br>
-                        <strong>Daya Listrik:</strong><br>
-                        P = V × I = I²R = V²/R
-                    `,
-                    example: `
-                        <strong>Contoh Soal:</strong><br>
-                        Dalam rangkaian seri, ada 3 resistor: R₁ = 2Ω, R₂ = 3Ω, R₃ = 5Ω. Jika arus yang mengalir 2A, berapa tegangan total?<br><br>
-                        <strong>Penyelesaian:</strong><br>
-                        Rangkaian seri: R_total = R₁ + R₂ + R₃<br>
-                        R_total = 2 + 3 + 5 = 10Ω<br><br>
-                        V_total = I × R_total<br>
-                        V_total = 2 × 10 = 20V<br><br>
-                        Jadi tegangan total adalah 20 Volt.
-                    `,
-                    exercise: {
-                        question: "Sebuah lampu dengan hambatan 12Ω dialiri arus 0,5A. Berapa daya yang dikonsumsi lampu tersebut? (gunakan P = I²R)",
-                        answer: 3,
-                        tolerance: 0.1,
-                        unit: "W"
-                    }
-                },
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.bottom = `-${size}px`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
 
-                medanMagnet: {
-                    title: "🧲 Medan Magnet",
-                    formula: "B = μ₀I/(2πr) | F = BIL sin θ | F = qvB sin θ",
-                    variables: {
-                        "B": "medan magnet dalam Tesla (T)",
-                        "μ₀": "permeabilitas ruang hampa = 4π×10⁻⁷ T·m/A",
-                        "I": "arus listrik dalam Ampere (A)",
-                        "r": "jarak dari kawat dalam meter (m)",
-                        "F": "gaya Lorentz dalam Newton (N)",
-                        "L": "panjang kawat dalam meter (m)",
-                        "θ": "sudut antara arah arus/kecepatan dengan medan magnet",
-                        "q": "muatan listrik dalam Coulomb (C)",
-                        "v": "kecepatan dalam meter per sekon (m/s)",
-                        "π": "konstanta pi = 3,14159"
-                    },
-                    explanation: `
-                        <strong>Medan magnet tuh kayak 'zona pengaruh' magnet yang ga keliatan!</strong><br><br>
-                        <strong>Medan Magnet (B):</strong><br>
-                        Satuan: Tesla (T) atau Weber/m²<br><br>
-                        <strong>Medan Magnet Kawat Lurus:</strong><br>
-                        B = μ₀I/(2πr)<br>
-                        μ₀ = 4π × 10⁻⁷ T⋅m/A (permeabilitas ruang hampa)<br><br>
-                        <strong>Gaya Lorentz pada Kawat:</strong><br>
-                        F = BIL sin θ<br>
-                        F = gaya (N), B = medan magnet (T), I = arus (A), L = panjang kawat (m)<br><br>
-                        <strong>Gaya Lorentz pada Muatan Bergerak:</strong><br>
-                        F = qvB sin θ<br>
-                        q = muatan (C), v = kecepatan (m/s)<br><br>
-                        <strong>Arah Gaya:</strong> Pakai kaidah tangan kanan!
-                    `,
-                    example: `
-                        <strong>Contoh Soal:</strong><br>
-                        Kawat sepanjang 0,5 m dialiri arus 3 A dalam medan magnet 0,2 T. Jika sudut antara kawat dan medan magnet 90°, berapa gaya yang dialami kawat?<br><br>
-                        <strong>Penyelesaian:</strong><br>
-                        Diketahui: L = 0,5 m, I = 3 A, B = 0,2 T, θ = 90°<br>
-                        Ditanya: F = ?<br><br>
-                        F = BIL sin θ<br>
-                        F = 0,2 × 3 × 0,5 × sin 90°<br>
-                        F = 0,2 × 3 × 0,5 × 1 = 0,3 N<br><br>
-                        Jadi gaya yang dialami kawat adalah 0,3 N.
-                    `,
-                    exercise: {
-                        question: "Sebuah elektron bergerak dengan kecepatan 2×10⁶ m/s tegak lurus medan magnet 0,5 T. Berapa gaya Lorentz yang dialami? (muatan elektron = 1,6×10⁻¹⁹ C)",
-                        answer: 1.6e-13,
-                        tolerance: 1e-14,
-                        unit: "N"
-                    }
-                },
+        // Initialize particles when page loads
+        window.addEventListener('load', createParticles);
 
-                induksiElektromagnetik: {
-                    title: "🔄 Induksi Elektromagnetik",
-                    formula: "ε = -dΦ/dt | Φ = BA cos θ | ε = BLv",
-                    variables: {
-                        "ε": "ggl induksi dalam Volt (V)",
-                        "Φ": "fluks magnetik dalam Weber (Wb)",
-                        "t": "waktu dalam sekon (s)",
-                        "B": "medan magnet dalam Tesla (T)",
-                        "A": "luas permukaan dalam meter persegi (m²)",
-                        "θ": "sudut antara medan magnet dengan normal bidang",
-                        "L": "panjang kawat dalam meter (m)",
-                        "v": "kecepatan dalam meter per sekon (m/s)",
-                        "N": "jumlah lilitan kumparan",
-                        "Vₛ": "tegangan sekunder dalam Volt (V)",
-                        "Vₚ": "tegangan primer dalam Volt (V)",
-                        "Nₛ": "jumlah lilitan sekunder",
-                        "Nₚ": "jumlah lilitan primer",
-                        "Iₛ": "arus sekunder dalam Ampere (A)",
-                        "Iₚ": "arus primer dalam Ampere (A)"
-                    },
-                    explanation: `
-                        <strong>Induksi elektromagnetik tuh cara 'sulap' medan magnet jadi listrik!</strong><br><br>
-                        <strong>Fluks Magnetik (Φ):</strong><br>
-                        Φ = BA cos θ<br>
-                        Φ = fluks magnetik (Weber), B = medan magnet (T), A = luas (m²)<br><br>
-                        <strong>Hukum Faraday:</strong><br>
-                        ε = -dΦ/dt<br>
-                        GGL induksi = negatif laju perubahan fluks magnetik<br><br>
-                        <strong>Hukum Lenz:</strong><br>
-                        Tanda negatif (-) menunjukkan arah GGL induksi melawan perubahan fluks<br><br>
-                        <strong>GGL Induksi Gerak:</strong><br>
-                        ε = BLv<br>
-                        Untuk kawat yang bergerak dalam medan magnet<br><br>
-                        <strong>Transformator:</strong><br>
-                        Vₛ/Vₚ = Nₛ/Nₚ = Iₚ/Iₛ
-                    `,
-                    example: `
-                        <strong>Contoh Soal:</strong><br>
-                        Sebuah kumparan dengan 100 lilitan berada dalam medan magnet yang berubah dari 0,1 T menjadi 0,3 T dalam waktu 0,2 s. Luas kumparan 0,02 m². Berapa GGL induksi yang timbul?<br><br>
-                        <strong>Penyelesaian:</strong><br>
-                        Diketahui: N = 100, B₁ = 0,1 T, B₂ = 0,3 T, Δt = 0,2 s, A = 0,02 m²<br><br>
-                        ΔΦ = A(B₂ - B₁) = 0,02(0,3 - 0,1) = 0,004 Wb<br><br>
-                        ε = -N × ΔΦ/Δt<br>
-                        ε = -100 × 0,004/0,2 = -2 V<br><br>
-                        Jadi GGL induksi adalah 2 V (tanda negatif menunjukkan arah).
-                    `,
-                    exercise: {
-                        question: "Sebuah kawat sepanjang 0,8 m bergerak dengan kecepatan 5 m/s tegak lurus medan magnet 0,4 T. Berapa GGL induksi yang timbul?",
-                        answer: 1.6,
-                        tolerance: 0.1,
-                        unit: "V"
-                    }
-                },
+        let currentExercise = {};
 
-                arusBolikBalik: {
-                    title: "🌊 Arus Bolak-Balik (AC)",
-                    formula: "i = I₀ sin ωt | v = V₀ sin ωt | I_rms = I₀/√2 | f = 1/T",
-                    variables: {
-                        "i": "arus sesaat dalam Ampere (A)",
-                        "I₀": "arus maksimum dalam Ampere (A)",
-                        "ω": "frekuensi sudut dalam radian per sekon (rad/s)",
-                        "t": "waktu dalam sekon (s)",
-                        "v": "tegangan sesaat dalam Volt (V)",
-                        "V₀": "tegangan maksimum dalam Volt (V)",
-                        "Iᵣₘₛ": "arus efektif (RMS) dalam Ampere (A)",
-                        "Vᵣₘₛ": "tegangan efektif (RMS) dalam Volt (V)",
-                        "f": "frekuensi dalam Hertz (Hz)",
-                        "T": "periode dalam sekon (s)",
-                        "φ": "sudut fase dalam radian",
-                        "Z": "impedansi dalam Ohm (Ω)",
-                        "R": "resistansi dalam Ohm (Ω)",
-                        "X_L": "reaktansi induktif dalam Ohm (Ω)",
-                        "X_C": "reaktansi kapasitif dalam Ohm (Ω)",
-                        "L": "induktansi dalam Henry (H)",
-                        "C": "kapasitansi dalam Farad (F)"
-                    },
-                    explanation: `
-                        <strong>Arus AC tuh kayak ombak, naik turun terus-menerus!</strong><br><br>
-                        <strong>Arus Sinusoidal:</strong><br>
-                        i(t) = I₀ sin(ωt + φ)<br>
-                        I₀ = arus maksimum, ω = frekuensi sudut, φ = fase awal<br><br>
-                        <strong>Tegangan Sinusoidal:</strong><br>
-                        v(t) = V₀ sin(ωt + φ)<br><br>
-                        <strong>Nilai Efektif (RMS):</strong><br>
-                        I_rms = I₀/√2<br>
-                        V_rms = V₀/√2<br><br>
-                        <strong>Impedansi Rangkaian RLC:</strong><br>
-                        Z = √[R² + (X_L - X_C)²]<br>
-                        X_L = ωL (reaktansi induktif)<br>
-                        X_C = 1/(ωC) (reaktansi kapasitif)<br><br>
-                        <strong>Resonansi:</strong> X_L = X_C, maka Z minimum = R
-                    `,
-                    example: `
-                        <strong>Contoh Soal:</strong><br>
-                        Arus AC memiliki persamaan i = 5 sin(100πt) A. Tentukan: a) arus maksimum, b) frekuensi, c) arus efektif!<br><br>
-                        <strong>Penyelesaian:</strong><br>
-                        Dari i = 5 sin(100πt) A:<br><br>
-                        a) I₀ = 5 A<br><br>
-                        b) ω = 100π rad/s<br>
-                        f = ω/(2π) = 100π/(2π) = 50 Hz<br><br>
-                        c) I_rms = I₀/√2 = 5/√2 = 3,54 A<br><br>
-                        Jadi arus maksimum 5 A, frekuensi 50 Hz, arus efektif 3,54 A.
-                    `,
-                    exercise: {
-                        question: "Tegangan AC rumah tangga memiliki nilai efektif 220 V. Berapa tegangan maksimumnya?",
-                        answer: 311.13,
-                        tolerance: 5,
-                        unit: "V"
-                    }
+        const topics = {
+            besaranSatuan: {
+                title: "<i class='fas fa-ruler'></i> Besaran dan Satuan Fisika",
+                formula: "1 km = 1000 m | 1 kg = 1000 g | 1 jam = 3600 s",
+                variables: {
+                    "v": "kecepatan (velocity) dalam m/s",
+                    "s": "jarak (distance) dalam meter (m)", 
+                    "t": "waktu (time) dalam detik (s)",
+                    "km": "kilometer = 1000 meter",
+                    "g": "gram, dimana 1 kg = 1000 g"
+                },
+                explanation: `
+                    <strong>Eh, ini dia nih yang paling basic tapi super penting!</strong><br><br>
+                    Jadi gini guys, besaran tuh kayak "apa yang mau kita ukur", misalnya panjang, massa, waktu. Nah, satuan tuh "pakai apa kita ngukurnya", kayak meter, kilogram, detik.<br><br>
+                    <strong>Besaran Pokok (yang utama banget):</strong><br>
+                    • Panjang → meter (m)<br>
+                    • Massa → kilogram (kg)<br>
+                    • Waktu → sekon (s)<br>
+                    • Arus listrik → ampere (A)<br><br>
+                    <strong>Besaran Turunan (gabungan yang pokok):</strong><br>
+                    • Luas → m²<br>
+                    • Volume → m³<br>
+                    • Kecepatan → m/s<br>
+                    • Percepatan → m/s²
+                `,
+                example: `
+                    <strong>Contoh Soal:</strong><br>
+                    Pak Budi naik motor dari rumah ke kantor sejauh 5 km dalam waktu 15 menit. Berapa kecepatan rata-rata Pak Budi?<br><br>
+                    <strong>Penyelesaian:</strong><br>
+                    Diketahui: s = 5 km = 5000 m, t = 15 menit = 900 s<br>
+                    Ditanya: v = ?<br><br>
+                    v = s/t = 5000 m / 900 s = 5,56 m/s<br><br>
+                    Jadi kecepatan Pak Budi adalah 5,56 m/s atau sekitar 20 km/jam.
+                `,
+                exercise: {
+                    question: "Sebuah mobil menempuh jarak 150 km dalam waktu 2,5 jam. Berapa kecepatan rata-rata mobil tersebut dalam m/s?",
+                    answer: 16.67,
+                    tolerance: 0.5,
+                    unit: "m/s"
                 }
+            },
+            
+            gerakLurus: {
+                title: "<i class='fas fa-running'></i> Gerak Lurus",
+                formula: "v = s/t | a = Δv/Δt | s = v₀t + ½at²",
+                variables: {
+                    "v": "kecepatan akhir dalam m/s",
+                    "v₀": "kecepatan awal dalam m/s", 
+                    "s": "jarak tempuh dalam meter (m)",
+                    "t": "waktu dalam detik (s)",
+                    "a": "percepatan dalam m/s²",
+                    "Δv": "perubahan kecepatan (v - v₀)",
+                    "Δt": "perubahan waktu"
+                },
+                explanation: `
+                    <strong>Nah ini nih yang bikin kita bisa ngitung seberapa cepet kita lari!</strong><br><br>
+                    Gerak lurus itu gerakan benda yang lintasannya berupa garis lurus. Ada dua jenis:<br><br>
+                    <strong>1. Gerak Lurus Beraturan (GLB):</strong><br>
+                    • Kecepatan tetap (ga berubah)<br>
+                    • Rumus: s = v × t<br><br>
+                    <strong>2. Gerak Lurus Berubah Beraturan (GLBB):</strong><br>
+                    • Kecepatan berubah secara teratur<br>
+                    • Rumus: v = v₀ + at<br>
+                    • Rumus jarak: s = v₀t + ½at²<br><br>
+                    <strong>Tips:</strong> Kalau benda dipercepat, a positif. Kalau direm, a negatif!
+                `,
+                example: `
+                    <strong>Contoh Soal GLBB:</strong><br>
+                    Sebuah mobil mula-mula diam, lalu dipercepat dengan percepatan 2 m/s². Berapa jarak yang ditempuh dalam 5 detik?<br><br>
+                    <strong>Penyelesaian:</strong><br>
+                    Diketahui: v₀ = 0 m/s, a = 2 m/s², t = 5 s<br>
+                    Ditanya: s = ?<br><br>
+                    s = v₀t + ½at²<br>
+                    s = 0(5) + ½(2)(5)²<br>
+                    s = 0 + ½(2)(25) = 25 m<br><br>
+                    Jadi jarak yang ditempuh adalah 25 meter.
+                `,
+                exercise: {
+                    question: "Sebuah bola dilempar ke atas dengan kecepatan awal 20 m/s. Jika percepatan gravitasi 10 m/s², berapa tinggi maksimum yang dicapai bola? (gunakan rumus: h = v₀²/2g)",
+                    answer: 20,
+                    tolerance: 1,
+                    unit: "m"
+                }
+            },
+
+            gaya: {
+                title: "<i class='fas fa-dumbbell'></i> Gaya dan Hukum Newton",
+                formula: "F = m × a | ΣF = 0 (setimbang) | F₁ = -F₂ (aksi-reaksi)",
+                variables: {
+                    "F": "gaya dalam Newton (N)",
+                    "m": "massa benda dalam kilogram (kg)",
+                    "a": "percepatan dalam m/s²",
+                    "ΣF": "jumlah total semua gaya",
+                    "F₁, F₂": "gaya aksi dan reaksi yang berlawanan"
+                },
+                explanation: `
+                    <strong>Ini dia rumus yang bikin kita paham kenapa mobil bisa jalan!</strong><br><br>
+                    <strong>Hukum I Newton (Hukum Kelembaman):</strong><br>
+                    Benda yang diam akan tetap diam, benda yang bergerak akan tetap bergerak, kecuali ada gaya yang mempengaruhinya.<br><br>
+                    <strong>Hukum II Newton:</strong><br>
+                    F = m × a<br>
+                    Makin besar gaya, makin besar percepatan. Makin berat benda, makin susah dipercepat.<br><br>
+                    <strong>Hukum III Newton:</strong><br>
+                    Setiap aksi ada reaksi yang sama besar tapi berlawanan arah.<br>
+                    Contoh: Waktu kita jalan, kaki dorong tanah ke belakang, tanah dorong kaki ke depan.
+                `,
+                example: `
+                    <strong>Contoh Soal:</strong><br>
+                    Sebuah kotak bermassa 10 kg didorong dengan gaya 50 N. Berapa percepatan kotak tersebut?<br><br>
+                    <strong>Penyelesaian:</strong><br>
+                    Diketahui: m = 10 kg, F = 50 N<br>
+                    Ditanya: a = ?<br><br>
+                    F = m × a<br>
+                    50 = 10 × a<br>
+                    a = 50/10 = 5 m/s²<br><br>
+                    Jadi percepatan kotak adalah 5 m/s².
+                `,
+                exercise: {
+                    question: "Sebuah benda bermassa 8 kg bergerak dengan percepatan 3 m/s². Berapa besar gaya yang bekerja pada benda tersebut?",
+                    answer: 24,
+                    tolerance: 1,
+                    unit: "N"
+                }
+            },
+
+            energi: {
+                title: "<i class='fas fa-bolt'></i> Energi dan Usaha",
+                formula: "Ek = ½mv² | Ep = mgh | W = F × s",
+                variables: {
+                    "Ek": "energi kinetik dalam Joule (J)",
+                    "Ep": "energi potensial dalam Joule (J)", 
+                    "W": "usaha dalam Joule (J)",
+                    "m": "massa benda dalam kilogram (kg)",
+                    "v": "kecepatan dalam m/s",
+                    "g": "percepatan gravitasi (≈ 10 m/s²)",
+                    "h": "ketinggian dalam meter (m)",
+                    "F": "gaya dalam Newton (N)",
+                    "s": "perpindahan dalam meter (m)"
+                },
+                explanation: `
+                    <strong>Energi tuh kayak 'bahan bakar' buat segala sesuatu bergerak!</strong><br><br>
+                    <strong>Energi Kinetik (Ek):</strong><br>
+                    Energi yang dimiliki benda karena bergerak<br>
+                    Rumus: Ek = ½mv²<br><br>
+                    <strong>Energi Potensial (Ep):</strong><br>
+                    Energi yang dimiliki benda karena posisinya<br>
+                    Rumus: Ep = mgh<br><br>
+                    <strong>Usaha (W):</strong><br>
+                    Energi yang diperlukan untuk memindahkan benda<br>
+                    Rumus: W = F × s × cos θ<br><br>
+                    <strong>Hukum Kekekalan Energi:</strong><br>
+                    Energi ga bisa diciptakan atau dimusnahkan, cuma bisa diubah bentuknya!
+                `,
+                example: `
+                    <strong>Contoh Soal:</strong><br>
+                    Sebuah bola bermassa 2 kg jatuh dari ketinggian 5 m. Berapa energi kinetik bola saat menyentuh tanah? (g = 10 m/s²)<br><br>
+                    <strong>Penyelesaian:</strong><br>
+                    Pakai hukum kekekalan energi:<br>
+                    Ep awal = Ek akhir<br>
+                    mgh = ½mv²<br>
+                    2 × 10 × 5 = ½ × 2 × v²<br>
+                    100 = v²<br>
+                    v = 10 m/s<br><br>
+                    Ek = ½mv² = ½ × 2 × 10² = 100 J
+                `,
+                exercise: {
+                    question: "Sebuah mobil bermassa 1000 kg bergerak dengan kecepatan 20 m/s. Berapa energi kinetik mobil tersebut?",
+                    answer: 200000,
+                    tolerance: 10000,
+                    unit: "J"
+                }
+            },
+
+            momentum: {
+                title: "<i class='fas fa-bullseye'></i> Momentum dan Impuls",
+                formula: "p = m × v | I = F × Δt | I = Δp",
+                variables: {
+                    "p": "momentum dalam kg⋅m/s",
+                    "m": "massa benda dalam kilogram (kg)",
+                    "v": "kecepatan dalam m/s", 
+                    "I": "impuls dalam N⋅s",
+                    "F": "gaya dalam Newton (N)",
+                    "Δt": "selang waktu dalam detik (s)",
+                    "Δp": "perubahan momentum",
+                    "v₁, v₂": "kecepatan sebelum tumbukan",
+                    "v₁', v₂'": "kecepatan setelah tumbukan"
+                },
+                explanation: `
+                    <strong>Momentum tuh kayak 'daya dobrak' suatu benda!</strong><br><br>
+                    <strong>Momentum (p):</strong><br>
+                    p = m × v<br>
+                    Makin berat dan makin cepat, makin besar momentumnya<br><br>
+                    <strong>Impuls (I):</strong><br>
+                    I = F × Δt = Δp<br>
+                    Impuls = perubahan momentum<br><br>
+                    <strong>Hukum Kekekalan Momentum:</strong><br>
+                    Dalam sistem tertutup, momentum total sebelum = momentum total sesudah<br>
+                    m₁v₁ + m₂v₂ = m₁v₁' + m₂v₂'
+                `,
+                example: `
+                    <strong>Contoh Soal Tumbukan:</strong><br>
+                    Bola A (2 kg) bergerak 4 m/s menumbuk bola B (3 kg) yang diam. Setelah tumbukan, bola A bergerak 1 m/s. Berapa kecepatan bola B?<br><br>
+                    <strong>Penyelesaian:</strong><br>
+                    Momentum sebelum = Momentum sesudah<br>
+                    m₁v₁ + m₂v₂ = m₁v₁' + m₂v₂'<br>
+                    2(4) + 3(0) = 2(1) + 3(v₂')<br>
+                    8 = 2 + 3v₂'<br>
+                    v₂' = 2 m/s
+                `,
+                exercise: {
+                    question: "Sebuah benda bermassa 5 kg bergerak dengan kecepatan 6 m/s. Berapa momentum benda tersebut?",
+                    answer: 30,
+                    tolerance: 1,
+                    unit: "kg⋅m/s"
+                }
+            },
+
+            kinematika: {
+                title: "<i class='fas fa-tachometer-alt'></i> Kecepatan dan Percepatan",
+                formula: "v̄ = Δs/Δt | v = ds/dt | a = dv/dt | v² = v₀² + 2as",
+                variables: {
+                    "v̄": "kecepatan rata-rata dalam m/s",
+                    "v": "kecepatan sesaat dalam m/s",
+                    "v₀": "kecepatan awal dalam m/s",
+                    "a": "percepatan dalam m/s²",
+                    "s": "posisi/jarak dalam meter (m)",
+                    "t": "waktu dalam detik (s)",
+                    "Δs": "perpindahan (s₂ - s₁)",
+                    "Δt": "selang waktu (t₂ - t₁)",
+                    "Δv": "perubahan kecepatan (v - v₀)",
+                    "g": "percepatan gravitasi (≈ 10 m/s²)",
+                    "h": "ketinggian dalam meter (m)"
+                },
+                explanation: `
+                    <strong>Kinematika tuh ilmu yang bahas gerakan tanpa peduli penyebabnya!</strong><br><br>
+                    <strong>Laju vs Kecepatan:</strong><br>
+                    • Laju = jarak total ÷ waktu (selalu positif)<br>
+                    • Kecepatan = perpindahan ÷ waktu (bisa negatif)<br><br>
+                    <strong>Kecepatan Rata-rata:</strong><br>
+                    v̄ = Δs/Δt = (s₂ - s₁)/(t₂ - t₁)<br><br>
+                    <strong>Kecepatan Sesaat:</strong><br>
+                    v = ds/dt (kecepatan pada saat tertentu)<br><br>
+                    <strong>Percepatan:</strong><br>
+                    a = Δv/Δt = dv/dt<br><br>
+                    <strong>Gerak Vertikal (jatuh bebas):</strong><br>
+                    • v = v₀ + gt<br>
+                    • h = v₀t + ½gt²<br>
+                    • v² = v₀² + 2gh
+                `,
+                example: `
+                    <strong>Contoh Soal Gerak Vertikal:</strong><br>
+                    Sebuah bola dilempar vertikal ke atas dengan kecepatan awal 30 m/s. Berapa tinggi maksimum dan waktu untuk mencapainya? (g = 10 m/s²)<br><br>
+                    <strong>Penyelesaian:</strong><br>
+                    Di titik tertinggi: v = 0<br>
+                    v = v₀ - gt<br>
+                    0 = 30 - 10t<br>
+                    t = 3 s<br><br>
+                    h = v₀t - ½gt²<br>
+                    h = 30(3) - ½(10)(3)²<br>
+                    h = 90 - 45 = 45 m<br><br>
+                    Atau pakai: h = v₀²/(2g) = 30²/(2×10) = 45 m
+                `,
+                exercise: {
+                    question: "Sebuah mobil bergerak dari kecepatan 20 m/s menjadi 50 m/s dalam waktu 6 detik. Berapa percepatan mobil tersebut?",
+                    answer: 5,
+                    tolerance: 0.5,
+                    unit: "m/s²"
+                }
+            },
+            vektor: {
+                title: "<i class='fas fa-arrows-alt'></i> Vektor dalam Koordinat Kartesius",
+                formula: "A = Ax&nbsp;i + Ay&nbsp;j | |A| = &radic;(Ax&sup2; + Ay&sup2;) | A &middot; B = AxBx + AyBy | A &times; B = AxBy - AyBx",
+                variables: {
+                    "A, B": "vektor A dan B",
+                    "Ax, Ay": "komponen vektor A pada sumbu x dan y",
+                    "Bx, By": "komponen vektor B pada sumbu x dan y",
+                    "|A|": "besar/magnitude vektor A",
+                    "i, j": "vektor satuan pada sumbu x dan y",
+                    "A &middot; B": "perkalian dot/skalar vektor",
+                    "A &times; B": "perkalian cross/silang vektor (2D)",
+                    "&theta;": "sudut antara dua vektor",
+                    "cos &theta;": "kosinus sudut antara vektor"
+                },
+                explanation: `
+                    <strong>Vektor tuh kayak panah yang punya arah dan besar!</strong><br><br>
+                    <strong>Koordinat Kartesius:</strong><br>
+                    • Vektor A = Ax&nbsp;i + Ay&nbsp;j<br>
+                    • Ax = komponen horizontal<br>
+                    • Ay = komponen vertikal<br><br>
+                    <strong>Besar Vektor:</strong><br>
+                    |A| = &radic;(Ax&sup2; + Ay&sup2;)<br><br>
+                    <strong>Penjumlahan Vektor:</strong><br>
+                    C = A + B = (Ax + Bx)i + (Ay + By)j<br><br>
+                    <strong>Perkalian Dot (Skalar):</strong><br>
+                    A &middot; B = |A||B|cos &theta; = AxBx + AyBy<br><br>
+                    <strong>Perkalian Cross (dalam 2D):</strong><br>
+                    A &times; B = AxBy - AyBx<br><br>
+                    <strong>Tips:</strong> Vektor punya arah, skalar cuma punya besar!
+                `,
+                example: `
+                    <strong>Contoh Soal:</strong><br>
+                    Diketahui A = 3i + 4j dan B = 5i - 2j. Tentukan:<br>
+                    a) |A| dan |B|<br>
+                    b) A + B<br>
+                    c) A &middot; B<br><br>
+                    <strong>Penyelesaian:</strong><br>
+                    a) |A| = &radic;(3&sup2; + 4&sup2;) = &radic;(9 + 16) = 5<br>
+                    |B| = &radic;(5&sup2; + (-2)&sup2;) = &radic;(25 + 4) = &radic;29 &asymp; 5,39<br><br>
+                    b) A + B = (3+5)i + (4-2)j = 8i + 2j<br><br>
+                    c) A &middot; B = (3)(5) + (4)(-2) = 15 - 8 = 7
+                `,
+                exercise: {
+                    question: "Vektor P = 6i + 8j. Berapa besar vektor P?",
+                    answer: 10,
+                    tolerance: 0.1,
+                    unit: "satuan"
+                }
+            },
+            panas: {
+                title: "<i class='fas fa-fire'></i> Panas dan Termodinamika",
+                formula: "Q = mcΔT | ΔL = L₀αΔT | ΔV = V₀βΔT | PV = nRT",
+                variables: {
+                    "Q": "kalor/panas dalam Joule (J)",
+                    "m": "massa benda dalam kilogram (kg)",
+                    "c": "kalor jenis benda (J/kg°C)",
+                    "ΔT": "perubahan suhu (°C atau K)",
+                    "T": "suhu dalam Kelvin (K) atau Celsius (°C)",
+                    "ΔL": "pertambahan panjang (m)",
+                    "L₀": "panjang mula-mula (m)",
+                    "α": "koefisien muai panjang (/°C)",
+                    "ΔV": "pertambahan volume (m³)",
+                    "V₀": "volume mula-mula (m³)",
+                    "β": "koefisien muai volume (/°C)",
+                    "P": "tekanan gas (Pa atau atm)",
+                    "V": "volume gas (m³ atau L)",
+                    "n": "jumlah mol gas",
+                    "R": "konstanta gas ideal (8.314 J/mol⋅K)",
+                    "ρ": "densitas/kerapatan (kg/m³)",
+                    "RH": "kelembaban relatif (%)"
+                },
+                explanation: `
+                    <strong>Panas tuh energi yang berpindah karena perbedaan suhu!</strong><br><br>
+                    
+                    <strong>🌡️ Suhu dan Termometri:</strong><br>
+                    • Celsius: 0°C (es mencair), 100°C (air mendidih)<br>
+                    • Kelvin: T(K) = T(°C) + 273<br>
+                    • Fahrenheit: T(°F) = 9/5 × T(°C) + 32<br><br>
+                    
+                    <strong>🔥 Kalor/Panas:</strong><br>
+                    Q = m × c × ΔT<br>
+                    • m = massa, c = kalor jenis, ΔT = perubahan suhu<br>
+                    • Kalor jenis air = 4200 J/kg°C<br><br>
+                    
+                    <strong>📏 Pemuaian Termal:</strong><br>
+                    • Pemuaian panjang: ΔL = L₀ × α × ΔT<br>
+                    • Pemuaian volume: ΔV = V₀ × β × ΔT<br>
+                    • β ≈ 3α (untuk benda padat)<br><br>
+                    
+                    <strong>💧 Perubahan Fase:</strong><br>
+                    • Mencair: padat → cair (butuh kalor lebur)<br>
+                    • Menguap: cair → gas (butuh kalor uap)<br>
+                    • Q = m × L (L = kalor laten)<br><br>
+                    
+                    <strong>💨 Gas Ideal:</strong><br>
+                    PV = nRT<br>
+                    • 1 mol = 6.02 × 10²³ partikel<br>
+                    • STP: 0°C, 1 atm<br><br>
+                    
+                    <strong>🌍 Efek Rumah Kaca:</strong><br>
+                    Gas-gas seperti CO₂, CH₄ menyerap radiasi inframerah dan memanaskan atmosfer.<br><br>
+                    
+                    <strong>📊 Hukum Termodinamika ke-0:</strong><br>
+                    Jika A = B dan B = C, maka A = C (konsep kesetimbangan termal)
+                `,
+                example: `
+                    <strong>Contoh Soal Kalor:</strong><br>
+                    Berapa kalor yang diperlukan untuk memanaskan 2 kg air dari 20°C menjadi 80°C? (c air = 4200 J/kg°C)<br><br>
+                    <strong>Penyelesaian:</strong><br>
+                    Diketahui: m = 2 kg, c = 4200 J/kg°C, ΔT = 80-20 = 60°C<br>
+                    Ditanya: Q = ?<br><br>
+                    Q = m × c × ΔT<br>
+                    Q = 2 × 4200 × 60<br>
+                    Q = 504.000 J = 504 kJ<br><br>
+                    
+                    <strong>Contoh Pemuaian:</strong><br>
+                    Batang besi panjang 10 m dipanaskan dari 20°C ke 120°C. Jika α = 1.2 × 10⁻⁵ /°C, berapa pertambahan panjangnya?<br><br>
+                    ΔL = L₀ × α × ΔT = 10 × 1.2×10⁻⁵ × 100 = 0.012 m = 1.2 cm
+                `,
+                exercise: {
+                    question: "Sebuah batang tembaga panjang 5 m dipanaskan sehingga suhunya naik 50°C. Jika koefisien muai panjang tembaga 1.7 × 10⁻⁵ /°C, berapa pertambahan panjang batang? (dalam mm)",
+                    answer: 4.25,
+                    tolerance: 0.25,
+                    unit: "mm"
+                }
+            },
+            termodinamika: {
+                title: "<i class='fas fa-cogs'></i> Proses Termodinamika",
+                formula: "ΔU = Q - W | W = ∫PdV | Q = nCΔT",
+                variables: {
+                    "ΔU": "perubahan energi dalam (J)",
+                    "Q": "kalor yang diterima/dilepas (J)",
+                    "W": "usaha yang dilakukan (J)",
+                    "P": "tekanan (Pa)",
+                    "V": "volume (m³)",
+                    "T": "suhu (K)",
+                    "n": "jumlah mol",
+                    "C": "kapasitas kalor (J/mol⋅K)",
+                    "Cp": "kapasitas kalor tekanan tetap",
+                    "Cv": "kapasitas kalor volume tetap",
+                    "γ": "rasio Cp/Cv"
+                },
+                explanation: `
+                    <strong>Termodinamika tuh ilmu yang bahas hubungan panas, usaha, dan energi!</strong><br><br>
+                    
+                    <strong>⚖️ Hukum I Termodinamika:</strong><br>
+                    ΔU = Q - W<br>
+                    • Energi tidak bisa diciptakan atau dimusnahkan<br>
+                    • Q > 0: sistem menerima kalor<br>
+                    • W > 0: sistem melakukan usaha<br><br>
+                    
+                    <strong>🔄 Proses-Proses Termodinamika:</strong><br><br>
+                    
+                    <strong>📊 Proses Isobar (Tekanan Tetap):</strong><br>
+                    • P = konstan<br>
+                    • W = P × ΔV<br>
+                    • Contoh: pemanasan air dalam panci terbuka<br><br>
+                    
+                    <strong>📦 Proses Isokhor/Isovolume (Volume Tetap):</strong><br>
+                    • V = konstan<br>
+                    • W = 0 (tidak ada usaha)<br>
+                    • Q = ΔU<br>
+                    • Contoh: pemanasan gas dalam tabung tertutup<br><br>
+                    
+                    <strong>🌡️ Proses Isotermal (Suhu Tetap):</strong><br>
+                    • T = konstan<br>
+                    • ΔU = 0 (untuk gas ideal)<br>
+                    • Q = W<br>
+                    • Contoh: kompresi/ekspansi lambat<br><br>
+                    
+                    <strong>🚀 Proses Adiabatik:</strong><br>
+                    • Q = 0 (tidak ada perpindahan kalor)<br>
+                    • ΔU = -W<br>
+                    • PVᵞ = konstan<br>
+                    • Contoh: kompresi/ekspansi cepat
+                `,
+                example: `
+                    <strong>Contoh Hukum I Termodinamika:</strong><br>
+                    Sebuah sistem menerima kalor 500 J dan melakukan usaha 300 J. Berapa perubahan energi dalamnya?<br><br>
+                    <strong>Penyelesaian:</strong><br>
+                    Diketahui: Q = +500 J (menerima), W = +300 J (melakukan)<br>
+                    Ditanya: ΔU = ?<br><br>
+                    ΔU = Q - W<br>
+                    ΔU = 500 - 300 = 200 J<br><br>
+                    Jadi energi dalam sistem bertambah 200 J.
+                `,
+                exercise: {
+                    question: "Sebuah gas ideal melakukan usaha 400 J sambil melepaskan kalor 150 J. Berapa perubahan energi dalam gas tersebut?",
+                    answer: -550,
+                    tolerance: 10,
+                    unit: "J"
+                }
+            },
+            hantaranPanas: {
+                title: "<i class='fas fa-temperature-high'></i> Perpindahan Panas",
+                formula: "q = kA(ΔT/Δx) | q = hA(ΔT) | q = εσAT⁴",
+                variables: {
+                    "q": "laju perpindahan panas (W atau J/s)",
+                    "k": "konduktivitas termal (W/m⋅K)",
+                    "A": "luas penampang (m²)",
+                    "ΔT": "perbedaan suhu (K atau °C)",
+                    "Δx": "ketebalan material (m)",
+                    "h": "koefisien konveksi (W/m²⋅K)",
+                    "ε": "emisivitas (0-1)",
+                    "σ": "konstanta Stefan-Boltzmann (5.67×10⁻⁸ W/m²⋅K⁴)",
+                    "T": "suhu mutlak (K)",
+                    "RH": "kelembaban relatif (%)",
+                    "Td": "titik embun (°C)"
+                },
+                explanation: `
+                    <strong>Ada 3 cara panas berpindah dari tempat panas ke tempat dingin!</strong><br><br>
+                    
+                    <strong>🧱 Konduksi (Hantaran):</strong><br>
+                    • Perpindahan panas melalui benda padat<br>
+                    • Tanpa perpindahan materi<br>
+                    • Rumus: q = kA(ΔT/Δx)<br>
+                    • Contoh: sendok panas saat diaduk di air panas<br>
+                    • Logam = konduktor baik, kayu = isolator<br><br>
+                    
+                    <strong>🌬️ Konveksi (Aliran):</strong><br>
+                    • Perpindahan panas melalui aliran fluida (cair/gas)<br>
+                    • Ada perpindahan materi<br>
+                    • Konveksi alami: karena perbedaan densitas<br>
+                    • Konveksi paksa: dengan kipas/pompa<br>
+                    • Contoh: angin darat-laut, air mendidih<br><br>
+                    
+                    <strong>☀️ Radiasi (Pancaran):</strong><br>
+                    • Perpindahan panas tanpa medium<br>
+                    • Melalui gelombang elektromagnetik<br>
+                    • Rumus Stefan-Boltzmann: q = εσAT⁴<br>
+                    • Contoh: panas matahari, microwave<br>
+                    • Benda hitam = penyerap radiasi terbaik<br><br>
+                    
+                    <strong>💧 Kelembaban:</strong><br>
+                    • Kelembaban relatif (RH) = (tekanan uap / tekanan uap jenuh) × 100%<br>
+                    • Titik embun = suhu dimana uap air mulai mengembun<br>
+                    • Tinggi RH = terasa gerah<br><br>
+                    
+                    <strong>🏠 Aplikasi:</strong><br>
+                    • Termos: mengurangi ketiga jenis perpindahan panas<br>
+                    • AC: konveksi paksa + refrigerasi<br>
+                    • Rumah: isolasi untuk mengurangi konduksi
+                `,
+                example: `
+                    <strong>Contoh Konduksi:</strong><br>
+                    Dinding rumah tebal 20 cm, konduktivitas termal 0.5 W/m⋅K, luas 10 m². Suhu dalam 25°C, luar 5°C. Berapa laju perpindahan panas?<br><br>
+                    <strong>Penyelesaian:</strong><br>
+                    k = 0.5 W/m⋅K, A = 10 m², ΔT = 25-5 = 20°C, Δx = 0.2 m<br><br>
+                    q = kA(ΔT/Δx)<br>
+                    q = 0.5 × 10 × (20/0.2)<br>
+                    q = 0.5 × 10 × 100 = 500 W<br><br>
+                    Jadi rumah kehilangan panas 500 W melalui dinding.
+                `,
+                exercise: {
+                    question: "Sebuah batang logam panjang 50 cm, luas penampang 2 cm², k = 200 W/m⋅K. Ujung satu 100°C, ujung lain 20°C. Berapa laju perpindahan panas? (dalam W)",
+                    answer: 64,
+                    tolerance: 2,
+                    unit: "W"
+                }
+            },
+            listrikStatis: {
+                title: "<i class='fas fa-battery-full'></i> Muatan dan Medan Listrik",
+                formula: "F = k(q₁q₂)/r² | E = F/q = kQ/r² | Φ = E·A | q = n·e",
+                variables: {
+                    "F": "gaya listrik dalam Newton (N)",
+                    "k": "konstanta Coulomb = 9×10⁹ N·m²/C²",
+                    "q₁, q₂": "muatan listrik dalam Coulomb (C)",
+                    "Q": "muatan sumber medan dalam Coulomb (C)",
+                    "r": "jarak antara muatan dalam meter (m)",
+                    "E": "kuat medan listrik dalam N/C atau V/m",
+                    "q": "muatan uji dalam Coulomb (C)",
+                    "Φ": "fluks listrik dalam N·m²/C",
+                    "A": "luas permukaan dalam m²",
+                    "n": "jumlah elektron/proton",
+                    "e": "muatan elementer = 1,6×10⁻¹⁹ C"
+                },
+                explanation: `
+                    <strong>Listrik statis tuh tentang muatan-muatan yang diam dan saling tarik-menarik!</strong><br><br>
+                    <strong>Muatan Listrik:</strong><br>
+                    • Muatan positif: kekurangan elektron<br>
+                    • Muatan negatif: kelebihan elektron<br>
+                    • Muatan elementer: e = 1,6×10⁻¹⁹ C<br><br>
+                    <strong>Hukum Coulomb:</strong><br>
+                    F = k(q₁q₂)/r²<br>
+                    • Muatan sejenis: tolak-menolak<br>
+                    • Muatan berbeda: tarik-menarik<br><br>
+                    <strong>Medan Listrik (E):</strong><br>
+                    E = F/q = kQ/r²<br>
+                    Medan listrik menunjukkan gaya per satuan muatan<br><br>
+                    <strong>Garis Gaya Listrik:</strong><br>
+                    • Keluar dari muatan positif<br>
+                    • Masuk ke muatan negatif<br>
+                    • Tidak pernah berpotongan<br><br>
+                    <strong>Konduktor vs Isolator:</strong><br>
+                    • Konduktor: mudah mengalirkan listrik (logam)<br>
+                    • Isolator: sulit mengalirkan listrik (plastik, kaca)<br><br>
+                    <strong>Hukum Gauss:</strong><br>
+                    Φ = Q_dalam/ε₀ (fluks listrik sebanding dengan muatan dalam)
+                `,
+                example: `
+                    <strong>Contoh Soal:</strong><br>
+                    Dua muatan q₁ = +3×10⁻⁶ C dan q₂ = -2×10⁻⁶ C terpisah sejauh 30 cm. Berapa gaya listrik yang bekerja?<br><br>
+                    <strong>Penyelesaian:</strong><br>
+                    Diketahui: q₁ = 3×10⁻⁶ C, q₂ = -2×10⁻⁶ C, r = 0,3 m<br>
+                    k = 9×10⁹ N·m²/C²<br><br>
+                    F = k|q₁q₂|/r²<br>
+                    F = (9×10⁹)(3×10⁻⁶)(2×10⁻⁶)/(0,3)²<br>
+                    F = (9×10⁹)(6×10⁻¹²)/0,09<br>
+                    F = 54×10⁻³/0,09 = 0,6 N<br><br>
+                    Karena muatan berbeda jenis, gaya bersifat tarik-menarik.
+                `,
+                exercise: {
+                    question: "Sebuah muatan +4×10⁻⁶ C menghasilkan medan listrik sejauh 2 meter dari muatan tersebut. Berapa besar medan listrik yang dihasilkan? (k = 9×10⁹ N·m²/C²)",
+                    answer: 9000,
+                    tolerance: 500,
+                    unit: "N/C"
+                }
+            },
+
+            potensialListrik: {
+                title: "<i class='fas fa-plug'></i> Potensial Listrik",
+                formula: "V = kQ/r | U = qV | W = qΔV | C = Q/V",
+                variables: {
+                    "V": "potensial listrik dalam Volt (V)",
+                    "k": "konstanta Coulomb = 9×10⁹ N·m²/C²",
+                    "Q": "muatan sumber dalam Coulomb (C)",
+                    "r": "jarak dari muatan sumber dalam meter (m)",
+                    "U": "energi potensial listrik dalam Joule (J)",
+                    "q": "muatan uji dalam Coulomb (C)",
+                    "W": "usaha listrik dalam Joule (J)",
+                    "ΔV": "beda potensial dalam Volt (V)",
+                    "C": "kapasitansi dalam Farad (F)",
+                    "ε₀": "permitivitas ruang hampa = 8,85×10⁻¹² F/m"
+                },
+                explanation: `
+                    <strong>Potensial listrik tuh kayak 'ketinggian' dalam medan listrik!</strong><br><br>
+                    <strong>Potensial Listrik (V):</strong><br>
+                    V = kQ/r<br>
+                    • Potensial tinggi: muatan positif besar<br>
+                    • Potensial rendah: muatan negatif besar<br>
+                    • Satuan: Volt (V)<br><br>
+                    <strong>Energi Potensial Listrik:</strong><br>
+                    U = qV = k(q₁q₂)/r<br>
+                    Energi yang dimiliki muatan karena posisinya<br><br>
+                    <strong>Usaha Listrik:</strong><br>
+                    W = qΔV = q(V₂ - V₁)<br>
+                    Usaha untuk memindahkan muatan<br><br>
+                    <strong>Beda Potensial:</strong><br>
+                    ΔV = V₂ - V₁<br>
+                    • Arus mengalir dari potensial tinggi ke rendah<br><br>
+                    <strong>Kapasitor:</strong><br>
+                    C = Q/V<br>
+                    • Menyimpan muatan listrik<br>
+                    • Energi tersimpan: U = ½CV²<br><br>
+                    <strong>Hubungan E dan V:</strong><br>
+                    E = -dV/dr (medan = negatif gradien potensial)
+                `,
+                example: `
+                    <strong>Contoh Soal:</strong><br>
+                    Sebuah muatan +2×10⁻⁶ C berada pada jarak 3 meter dari muatan sumber +5×10⁻⁶ C. Berapa potensial listrik dan energi potensial muatan tersebut?<br><br>
+                    <strong>Penyelesaian:</strong><br>
+                    Diketahui: Q = 5×10⁻⁶ C, q = 2×10⁻⁶ C, r = 3 m<br>
+                    k = 9×10⁹ N·m²/C²<br><br>
+                    V = kQ/r<br>
+                    V = (9×10⁹)(5×10⁻⁶)/3<br>
+                    V = 45×10³/3 = 15000 V<br><br>
+                    U = qV<br>
+                    U = (2×10⁻⁶)(15000)<br>
+                    U = 0,03 J<br><br>
+                    Jadi potensial listrik 15000 V dan energi potensial 0,03 J.
+                `,
+                exercise: {
+                    question: "Sebuah kapasitor memiliki kapasitansi 2×10⁻⁶ F dan diberi tegangan 12 V. Berapa muatan yang tersimpan dalam kapasitor? (dalam μC)",
+                    answer: 24,
+                    tolerance: 2,
+                    unit: "μC"
+                }
+            },
+            
+            arusListrik: {
+                title: "<i class='fas fa-charging-station'></i> Arus Listrik & Hukum Kirchhoff",
+                formula: "I = Q/t | V = I × R | P = V × I | ΣI masuk = ΣI keluar",
+                variables: {
+                    "I": "arus listrik dalam Ampere (A)",
+                    "Q": "muatan listrik dalam Coulomb (C)",
+                    "t": "waktu dalam sekon (s)",
+                    "V": "tegangan listrik dalam Volt (V)",
+                    "R": "hambatan listrik dalam Ohm (Ω)",
+                    "P": "daya listrik dalam Watt (W)",
+                    "ΣI": "jumlah total arus dalam Ampere (A)"
+                },
+                explanation: `
+                    <strong>Arus listrik tuh kayak aliran air, tapi yang ngalir elektron!</strong><br><br>
+                    <strong>Arus Listrik (I):</strong><br>
+                    I = Q/t (muatan per waktu)<br>
+                    Satuan: Ampere (A)<br><br>
+                    <strong>Hukum Ohm:</strong><br>
+                    V = I × R<br>
+                    V = tegangan (Volt), I = arus (Ampere), R = hambatan (Ohm)<br><br>
+                    <strong>Hukum Kirchhoff I (Hukum Arus):</strong><br>
+                    ΣI masuk = ΣI keluar<br>
+                    Total arus yang masuk ke titik = total arus yang keluar<br><br>
+                    <strong>Hukum Kirchhoff II (Hukum Tegangan):</strong><br>
+                    ΣV = 0 (dalam loop tertutup)<br>
+                    Jumlah tegangan dalam satu loop = 0<br><br>
+                    <strong>Daya Listrik:</strong><br>
+                    P = V × I = I²R = V²/R
+                `,
+                example: `
+                    <strong>Contoh Soal:</strong><br>
+                    Dalam rangkaian seri, ada 3 resistor: R₁ = 2Ω, R₂ = 3Ω, R₃ = 5Ω. Jika arus yang mengalir 2A, berapa tegangan total?<br><br>
+                    <strong>Penyelesaian:</strong><br>
+                    Rangkaian seri: R_total = R₁ + R₂ + R₃<br>
+                    R_total = 2 + 3 + 5 = 10Ω<br><br>
+                    V_total = I × R_total<br>
+                    V_total = 2 × 10 = 20V<br><br>
+                    Jadi tegangan total adalah 20 Volt.
+                `,
+                exercise: {
+                    question: "Sebuah lampu dengan hambatan 12Ω dialiri arus 0,5A. Berapa daya yang dikonsumsi lampu tersebut? (gunakan P = I²R)",
+                    answer: 3,
+                    tolerance: 0.1,
+                    unit: "W"
+                }
+            },
+
+            medanMagnet: {
+                title: "<i class='fas fa-magnet'></i> Medan Magnet",
+                formula: "B = μ₀I/(2πr) | F = BIL sin θ | F = qvB sin θ",
+                variables: {
+                    "B": "medan magnet dalam Tesla (T)",
+                    "μ₀": "permeabilitas ruang hampa = 4π×10⁻⁷ T·m/A",
+                    "I": "arus listrik dalam Ampere (A)",
+                    "r": "jarak dari kawat dalam meter (m)",
+                    "F": "gaya Lorentz dalam Newton (N)",
+                    "L": "panjang kawat dalam meter (m)",
+                    "θ": "sudut antara arah arus/kecepatan dengan medan magnet",
+                    "q": "muatan listrik dalam Coulomb (C)",
+                    "v": "kecepatan dalam meter per sekon (m/s)",
+                    "π": "konstanta pi = 3,14159"
+                },
+                explanation: `
+                    <strong>Medan magnet tuh kayak 'zona pengaruh' magnet yang ga keliatan!</strong><br><br>
+                    <strong>Medan Magnet (B):</strong><br>
+                    Satuan: Tesla (T) atau Weber/m²<br><br>
+                    <strong>Medan Magnet Kawat Lurus:</strong><br>
+                    B = μ₀I/(2πr)<br>
+                    μ₀ = 4π × 10⁻⁷ T⋅m/A (permeabilitas ruang hampa)<br><br>
+                    <strong>Gaya Lorentz pada Kawat:</strong><br>
+                    F = BIL sin θ<br>
+                    F = gaya (N), B = medan magnet (T), I = arus (A), L = panjang kawat (m)<br><br>
+                    <strong>Gaya Lorentz pada Muatan Bergerak:</strong><br>
+                    F = qvB sin θ<br>
+                    q = muatan (C), v = kecepatan (m/s)<br><br>
+                    <strong>Arah Gaya:</strong> Pakai kaidah tangan kanan!
+                `,
+                example: `
+                    <strong>Contoh Soal:</strong><br>
+                    Kawat sepanjang 0,5 m dialiri arus 3 A dalam medan magnet 0,2 T. Jika sudut antara kawat dan medan magnet 90°, berapa gaya yang dialami kawat?<br><br>
+                    <strong>Penyelesaian:</strong><br>
+                    Diketahui: L = 0,5 m, I = 3 A, B = 0,2 T, θ = 90°<br>
+                    Ditanya: F = ?<br><br>
+                    F = BIL sin θ<br>
+                    F = 0,2 × 3 × 0,5 × sin 90°<br>
+                    F = 0,2 × 3 × 0,5 × 1 = 0,3 N<br><br>
+                    Jadi gaya yang dialami kawat adalah 0,3 N.
+                `,
+                exercise: {
+                    question: "Sebuah elektron bergerak dengan kecepatan 2×10⁶ m/s tegak lurus medan magnet 0,5 T. Berapa gaya Lorentz yang dialami? (muatan elektron = 1,6×10⁻¹⁹ C)",
+                    answer: 1.6e-13,
+                    tolerance: 1e-14,
+                    unit: "N"
+                }
+            },
+
+            induksiElektromagnetik: {
+                title: "<i class='fas fa-sync-alt'></i> Induksi Elektromagnetik",
+                formula: "ε = -dΦ/dt | Φ = BA cos θ | ε = BLv",
+                variables: {
+                    "ε": "ggl induksi dalam Volt (V)",
+                    "Φ": "fluks magnetik dalam Weber (Wb)",
+                    "t": "waktu dalam sekon (s)",
+                    "B": "medan magnet dalam Tesla (T)",
+                    "A": "luas permukaan dalam meter persegi (m²)",
+                    "θ": "sudut antara medan magnet dengan normal bidang",
+                    "L": "panjang kawat dalam meter (m)",
+                    "v": "kecepatan dalam meter per sekon (m/s)",
+                    "N": "jumlah lilitan kumparan",
+                    "Vₛ": "tegangan sekunder dalam Volt (V)",
+                    "Vₚ": "tegangan primer dalam Volt (V)",
+                    "Nₛ": "jumlah lilitan sekunder",
+                    "Nₚ": "jumlah lilitan primer",
+                    "Iₛ": "arus sekunder dalam Ampere (A)",
+                    "Iₚ": "arus primer dalam Ampere (A)"
+                },
+                explanation: `
+                    <strong>Induksi elektromagnetik tuh cara 'sulap' medan magnet jadi listrik!</strong><br><br>
+                    <strong>Fluks Magnetik (Φ):</strong><br>
+                    Φ = BA cos θ<br>
+                    Φ = fluks magnetik (Weber), B = medan magnet (T), A = luas (m²)<br><br>
+                    <strong>Hukum Faraday:</strong><br>
+                    ε = -dΦ/dt<br>
+                    GGL induksi = negatif laju perubahan fluks magnetik<br><br>
+                    <strong>Hukum Lenz:</strong><br>
+                    Tanda negatif (-) menunjukkan arah GGL induksi melawan perubahan fluks<br><br>
+                    <strong>GGL Induksi Gerak:</strong><br>
+                    ε = BLv<br>
+                    Untuk kawat yang bergerak dalam medan magnet<br><br>
+                    <strong>Transformator:</strong><br>
+                    Vₛ/Vₚ = Nₛ/Nₚ = Iₚ/Iₛ
+                `,
+                example: `
+                    <strong>Contoh Soal:</strong><br>
+                    Sebuah kumparan dengan 100 lilitan berada dalam medan magnet yang berubah dari 0,1 T menjadi 0,3 T dalam waktu 0,2 s. Luas kumparan 0,02 m². Berapa GGL induksi yang timbul?<br><br>
+                    <strong>Penyelesaian:</strong><br>
+                    Diketahui: N = 100, B₁ = 0,1 T, B₂ = 0,3 T, Δt = 0,2 s, A = 0,02 m²<br><br>
+                    ΔΦ = A(B₂ - B₁) = 0,02(0,3 - 0,1) = 0,004 Wb<br><br>
+                    ε = -N × ΔΦ/Δt<br>
+                    ε = -100 × 0,004/0,2 = -2 V<br><br>
+                    Jadi GGL induksi adalah 2 V (tanda negatif menunjukkan arah).
+                `,
+                exercise: {
+                    question: "Sebuah kawat sepanjang 0,8 m bergerak dengan kecepatan 5 m/s tegak lurus medan magnet 0,4 T. Berapa GGL induksi yang timbul?",
+                    answer: 1.6,
+                    tolerance: 0.1,
+                    unit: "V"
+                }
+            },
+
+            arusBolikBalik: {
+                title: "<i class='fas fa-wave-square'></i> Arus Bolak-Balik (AC)",
+                formula: "i = I₀ sin ωt | v = V₀ sin ωt | I_rms = I₀/√2 | f = 1/T",
+                variables: {
+                    "i": "arus sesaat dalam Ampere (A)",
+                    "I₀": "arus maksimum dalam Ampere (A)",
+                    "ω": "frekuensi sudut dalam radian per sekon (rad/s)",
+                    "t": "waktu dalam sekon (s)",
+                    "v": "tegangan sesaat dalam Volt (V)",
+                    "V₀": "tegangan maksimum dalam Volt (V)",
+                    "Iᵣₘₛ": "arus efektif (RMS) dalam Ampere (A)",
+                    "Vᵣₘₛ": "tegangan efektif (RMS) dalam Volt (V)",
+                    "f": "frekuensi dalam Hertz (Hz)",
+                    "T": "periode dalam sekon (s)",
+                    "φ": "sudut fase dalam radian",
+                    "Z": "impedansi dalam Ohm (Ω)",
+                    "R": "resistansi dalam Ohm (Ω)",
+                    "X_L": "reaktansi induktif dalam Ohm (Ω)",
+                    "X_C": "reaktansi kapasitif dalam Ohm (Ω)",
+                    "L": "induktansi dalam Henry (H)",
+                    "C": "kapasitansi dalam Farad (F)"
+                },
+                explanation: `
+                    <strong>Arus AC tuh kayak ombak, naik turun terus-menerus!</strong><br><br>
+                    <strong>Arus Sinusoidal:</strong><br>
+                    i(t) = I₀ sin(ωt + φ)<br>
+                    I₀ = arus maksimum, ω = frekuensi sudut, φ = fase awal<br><br>
+                    <strong>Tegangan Sinusoidal:</strong><br>
+                    v(t) = V₀ sin(ωt + φ)<br><br>
+                    <strong>Nilai Efektif (RMS):</strong><br>
+                    I_rms = I₀/√2<br>
+                    V_rms = V₀/√2<br><br>
+                    <strong>Impedansi Rangkaian RLC:</strong><br>
+                    Z = √[R² + (X_L - X_C)²]<br>
+                    X_L = ωL (reaktansi induktif)<br>
+                    X_C = 1/(ωC) (reaktansi kapasitif)<br><br>
+                    <strong>Resonansi:</strong> X_L = X_C, maka Z minimum = R
+                `,
+                example: `
+                    <strong>Contoh Soal:</strong><br>
+                    Arus AC memiliki persamaan i = 5 sin(100πt) A. Tentukan: a) arus maksimum, b) frekuensi, c) arus efektif!<br><br>
+                    <strong>Penyelesaian:</strong><br>
+                    Dari i = 5 sin(100πt) A:<br><br>
+                    a) I₀ = 5 A<br><br>
+                    b) ω = 100π rad/s<br>
+                    f = ω/(2π) = 100π/(2π) = 50 Hz<br><br>
+                    c) I_rms = I₀/√2 = 5/√2 = 3,54 A<br><br>
+                    Jadi arus maksimum 5 A, frekuensi 50 Hz, arus efektif 3,54 A.
+                `,
+                exercise: {
+                    question: "Tegangan AC rumah tangga memiliki nilai efektif 220 V. Berapa tegangan maksimumnya?",
+                    answer: 311.13,
+                    tolerance: 5,
+                    unit: "V"
+                }
+            }
+        };
+
+        function showTopic(topicId) {
+            const topic = topics[topicId];
+            const content = `
+                <h2>${topic.title}</h2>
+                
+                <div class="formula-box">
+                    ${topic.formula}
+                </div>
+                
+                <div class="variables-box">
+                    <h4><i class="fas fa-book"></i> Keterangan Variabel:</h4>
+                    ${Object.entries(topic.variables).map(([symbol, description]) => 
+                        `<div class="variable-item">
+                            <span class="variable-symbol">${symbol} =</span>
+                            <span class="variable-description">${description}</span>
+                        </div>`
+                    ).join('')}
+                </div>
+                
+                <div class="explanation">
+                    <h3><i class="fas fa-lightbulb"></i> Penjelasan</h3>
+                    ${topic.explanation}
+                </div>
+                
+                <div class="example-box">
+                    <h3><i class="fas fa-pencil-alt"></i> Contoh Soal</h3>
+                    ${topic.example}
+                </div>
+                
+                <div class="exercise-box">
+                    <h3><i class="fas fa-gamepad"></i> Latihan Soal</h3>
+                    <p><strong>${topic.exercise.question}</strong></p>
+                    <br>
+                    <input type="number" id="answerInput" class="answer-input" placeholder="Jawaban" step="0.01">
+                    <span>${topic.exercise.unit}</span>
+                    <br>
+                    <button class="btn" onclick="checkAnswer('${topicId}')"><i class="fas fa-check"></i> Cek Jawaban</button>
+                    <button class="btn" onclick="showHint('${topicId}')"><i class="fas fa-question-circle"></i> Kasih Hint Dong!</button>
+                    <div id="feedback"></div>
+                </div>
+            `;
+            
+            document.getElementById('topicContent').innerHTML = content;
+            document.getElementById('topicsSection').style.display = 'none';
+            document.getElementById('contentArea').style.display = 'block';
+            currentExercise = topic.exercise;
+        }
+
+        function showTopics() {
+            document.getElementById('topicsSection').style.display = 'grid';
+            document.getElementById('contentArea').style.display = 'none';
+        }
+
+        function checkAnswer(topicId) {
+            const userAnswer = parseFloat(document.getElementById('answerInput').value);
+            const correctAnswer = topics[topicId].exercise.answer;
+            const tolerance = topics[topicId].exercise.tolerance;
+            const feedback = document.getElementById('feedback');
+            
+            if (isNaN(userAnswer)) {
+                feedback.innerHTML = '<div class="feedback incorrect"><i class="fas fa-exclamation-circle"></i> Eh, isi dulu dong jawabannya! 😅</div>';
+                return;
+            }
+            
+            if (Math.abs(userAnswer - correctAnswer) <= tolerance) {
+                feedback.innerHTML = `
+                    <div class="feedback correct">
+                        <i class="fas fa-check-circle"></i> 🎉 Mantap! Jawaban kamu benar! <br>
+                        Jawaban yang tepat adalah ${correctAnswer} ${topics[topicId].exercise.unit}
+                    </div>
+                `;
+            } else {
+                feedback.innerHTML = `
+                    <div class="feedback incorrect">
+                        <i class="fas fa-times-circle"></i> 😔 Belum tepat nih. Jawaban yang benar adalah ${correctAnswer} ${topics[topicId].exercise.unit}<br>
+                        Coba periksa lagi perhitungannya ya!
+                    </div>
+                `;
+            }
+        }
+
+        function showHint(topicId) {
+            const hints = {
+                besaranSatuan: "<i class='fas fa-lightbulb'></i> Hint: Ubah dulu km ke m dan jam ke detik ya! 1 km = 1000 m, 1 jam = 3600 s",
+                gerakLurus: "<i class='fas fa-lightbulb'></i> Hint: Pakai rumus h = v₀²/(2g). Ingat, v akhir = 0 di titik tertinggi!",
+                gaya: "<i class='fas fa-lightbulb'></i> Hint: Pakai rumus F = m × a. Jangan lupa satuan ya!",
+                energi: "<i class='fas fa-lightbulb'></i> Hint: Pakai rumus Ek = ½mv². Hati-hati dengan pangkat 2 nya!",
+                momentum: "<i class='fas fa-lightbulb'></i> Hint: Pakai rumus p = m × v. Kalikan massa dengan kecepatan!",
+                kinematika: "<i class='fas fa-lightbulb'></i> Hint: Pakai rumus a = (v - v₀)/t. Percepatan = perubahan kecepatan ÷ waktu!",
+                vektor: "<i class='fas fa-lightbulb'></i> Hint: Pakai rumus |A| = &radic;(Ax&sup2; + Ay&sup2;). Substitusi: &radic;(6&sup2; + 8&sup2;) = &radic;(36 + 64) = &radic;100 = 10",
+                panas: "<i class='fas fa-lightbulb'></i> Hint: Untuk pemuaian panjang, pakai ΔL = L₀ × α × ΔT. Jangan lupa ubah ke mm ya! 1 m = 1000 mm",
+                termodinamika: "<i class='fas fa-lightbulb'></i> Hint: ΔU = Q - W. Kalau melepas kalor, Q negatif. Perhatikan tanda plus-minus!",
+                hantaranPanas: "<i class='fas fa-lightbulb'></i> Hint: q = kA(ΔT/Δx). Hati-hati dengan satuan! Ubah cm ke m dulu: 2 cm² = 2×10⁻⁴ m², 50 cm = 0.5 m",
+                listrikStatis: "<i class='fas fa-lightbulb'></i> Hint: Pakai rumus E = kQ/r². Substitusi: E = (9×10⁹)(4×10⁻⁶)/(2)² = 36×10³/4 = 9000 N/C",
+                potensialListrik: "<i class='fas fa-lightbulb'></i> Hint: Pakai rumus Q = CV. Substitusi: Q = (2×10⁻⁶)(12) = 24×10⁻⁶ C = 24 μC",
+                arusListrik: "<i class='fas fa-lightbulb'></i> Hint: Pakai rumus P = I²R. Kuadratkan dulu arusnya, lalu kalikan dengan hambatan!",
+                medanMagnet: "<i class='fas fa-lightbulb'></i> Hint: Pakai rumus F = qvB sin θ. Jangan lupa θ = 90° jadi sin θ = 1!",
+                induksiElektromagnetik: "<i class='fas fa-lightbulb'></i> Hint: Pakai rumus ε = BLv. Kalikan medan magnet × panjang kawat × kecepatan!",
+                arusBolikBalik: "<i class='fas fa-lightbulb'></i> Hint: Pakai rumus V₀ = V_rms × √2. Kalikan nilai efektif dengan akar 2!"
             };
-
-            function showTopic(topicId) {
-                const topic = topics[topicId];
-                const content = `
-                    <h2>${topic.title}</h2>
-                    
-                    <div class="formula-box">
-                        ${topic.formula}
-                    </div>
-                    
-                    <div class="variables-box">
-                        <h4>🔤 Keterangan Variabel:</h4>
-                        ${Object.entries(topic.variables).map(([symbol, description]) => 
-                            `<div class="variable-item">
-                                <span class="variable-symbol">${symbol} =</span>
-                                <span class="variable-description">${description}</span>
-                            </div>`
-                        ).join('')}
-                    </div>
-                    
-                    <div class="explanation">
-                        <h3>💡 Penjelasan</h3>
-                        ${topic.explanation}
-                    </div>
-                    
-                    <div class="example-box">
-                        <h3>📝 ${topic.example}</h3>
-                    </div>
-                    
-                    <div class="exercise-box">
-                        <h3>🎯 Latihan Soal</h3>
-                        <p><strong>${topic.exercise.question}</strong></p>
-                        <br>
-                        <input type="number" id="answerInput" class="answer-input" placeholder="Jawaban" step="0.01">
-                        <span>${topic.exercise.unit}</span>
-                        <br>
-                        <button class="btn" onclick="checkAnswer('${topicId}')">Cek Jawaban</button>
-                        <button class="btn" onclick="showHint('${topicId}')">Kasih Hint Dong!</button>
-                        <div id="feedback"></div>
-                    </div>
-                `;
-                
-                document.getElementById('topicContent').innerHTML = content;
-                document.getElementById('topicsSection').style.display = 'none';
-                document.getElementById('contentArea').style.display = 'block';
-                currentExercise = topic.exercise;
-            }
-
-            function showTopics() {
-                document.getElementById('topicsSection').style.display = 'grid';
-                document.getElementById('contentArea').style.display = 'none';
-            }
-
-            function checkAnswer(topicId) {
-                const userAnswer = parseFloat(document.getElementById('answerInput').value);
-                const correctAnswer = topics[topicId].exercise.answer;
-                const tolerance = topics[topicId].exercise.tolerance;
-                const feedback = document.getElementById('feedback');
-                
-                if (isNaN(userAnswer)) {
-                    feedback.innerHTML = '<div class="feedback incorrect">Eh, isi dulu dong jawabannya! 😅</div>';
-                    return;
-                }
-                
-                if (Math.abs(userAnswer - correctAnswer) <= tolerance) {
-                    feedback.innerHTML = `
-                        <div class="feedback correct">
-                            🎉 Mantap! Jawaban kamu benar! <br>
-                            Jawaban yang tepat adalah ${correctAnswer} ${topics[topicId].exercise.unit}
-                        </div>
-                    `;
-                } else {
-                    feedback.innerHTML = `
-                        <div class="feedback incorrect">
-                            😔 Belum tepat nih. Jawaban yang benar adalah ${correctAnswer} ${topics[topicId].exercise.unit}<br>
-                            Coba periksa lagi perhitungannya ya!
-                        </div>
-                    `;
-                }
-            }
-
-            function showHint(topicId) {
-                const hints = {
-                    besaranSatuan: "Hint: Ubah dulu km ke m dan jam ke detik ya! 1 km = 1000 m, 1 jam = 3600 s",
-                    gerakLurus: "Hint: Pakai rumus h = v₀²/(2g). Ingat, v akhir = 0 di titik tertinggi!",
-                    gaya: "Hint: Pakai rumus F = m × a. Jangan lupa satuan ya!",
-                    energi: "Hint: Pakai rumus Ek = ½mv². Hati-hati dengan pangkat 2 nya!",
-                    momentum: "Hint: Pakai rumus p = m × v. Kalikan massa dengan kecepatan!",
-                    kinematika: "Hint: Pakai rumus a = (v - v₀)/t. Percepatan = perubahan kecepatan ÷ waktu!",
-                    vektor: "Hint: Pakai rumus |A| = &radic;(Ax&sup2; + Ay&sup2;). Substitusi: &radic;(6&sup2; + 8&sup2;) = &radic;(36 + 64) = &radic;100 = 10",
-                    panas: "Hint: Untuk pemuaian panjang, pakai ΔL = L₀ × α × ΔT. Jangan lupa ubah ke mm ya! 1 m = 1000 mm",
-                    termodinamika: "Hint: ΔU = Q - W. Kalau melepas kalor, Q negatif. Perhatikan tanda plus-minus!",
-                    hantaranPanas: "Hint: q = kA(ΔT/Δx). Hati-hati dengan satuan! Ubah cm ke m dulu: 2 cm² = 2×10⁻⁴ m², 50 cm = 0.5 m",
-                    listrikStatis: "Hint: Pakai rumus E = kQ/r². Substitusi: E = (9×10⁹)(4×10⁻⁶)/(2)² = 36×10³/4 = 9000 N/C",
-                    potensialListrik: "Hint: Pakai rumus Q = CV. Substitusi: Q = (2×10⁻⁶)(12) = 24×10⁻⁶ C = 24 μC",
-                    arusListrik: "Hint: Pakai rumus P = I²R. Kuadratkan dulu arusnya, lalu kalikan dengan hambatan!",
-                    medanMagnet: "Hint: Pakai rumus F = qvB sin θ. Jangan lupa θ = 90° jadi sin θ = 1!",
-                    induksiElektromagnetik: "Hint: Pakai rumus ε = BLv. Kalikan medan magnet × panjang kawat × kecepatan!",
-                    arusBolikBalik: "Hint: Pakai rumus V₀ = V_rms × √2. Kalikan nilai efektif dengan akar 2!"
-                };
-                
-                document.getElementById('feedback').innerHTML = `
-                    <div class="feedback" style="background: #fff3cd; color: #856404; border: 1px solid #ffeaa7;">
-                        💡 ${hints[topicId]}
-                    </div>
-                `;
-            }
-        </script>
-    </body>
-    </html>
+            
+            document.getElementById('feedback').innerHTML = `
+                <div class="feedback" style="background: #fff3cd; color: #856404; border: 1px solid #ffeaa7;">
+                    ${hints[topicId]}
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
